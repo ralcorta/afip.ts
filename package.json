@@ -1,0 +1,62 @@
+{
+  "name": "Afip-SDK",
+  "version": "1.3.1",
+  "description": "Afip-SDK",
+  "source": "src/index.ts",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "scripts": {
+    "build": "npx tsc",
+    "test": "jest",
+    "doc": "typedoc --theme oxide --name 'Afip-SDK' --out docs src/index.ts",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm test && npm run build",
+    "version": "git add -A src",
+    "postversion": "git push && git push --tags",
+    "wsdl-gen": "wsdl-to-ts --"
+  },
+  "author": "ValiuLab",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/jest": "^27.5.1",
+    "@types/node-forge": "^1.3.0",
+    "@types/soap": "^0.21.0",
+    "@types/underscore": "^1.11.4",
+    "@types/xml2js": "^0.4.11",
+    "jest": "^28.1.0",
+    "ts-jest": "^28.0.3",
+    "typedoc": "^0.22.17",
+    "typescript": "^4.6.4"
+  },
+  "dependencies": {
+    "jsontoxml": "^1.0.1",
+    "moment": "^2.29.4",
+    "node-forge": "^1.3.1",
+    "soap": "^0.45.0",
+    "typedoc-theme-oxide": "^0.1.6",
+    "wsdl-to-ts": "^0.2.3",
+    "wsdl-tsclient": "^1.4.0",
+    "xml2js": "^0.4.23"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/valiulab-core/Afip-SDK.git"
+  },
+  "bugs": {
+    "url": "https://github.com/valiulab-core/Afip-SDK/issues"
+  },
+  "homepage": "https://github.com/valiulab-core/Afip-SDK#readme",
+  "files": [
+    "lib/**/*"
+  ],
+  "keywords": [
+    "afip",
+    "sdk",
+    "package",
+    "api",
+    "soap",
+    "rest",
+    "endpoint",
+    "wsa"
+  ]
+}
