@@ -1,5 +1,4 @@
 import { Client, createClientAsync, IOptions } from "soap";
-import { EndpointsEnum } from "../endpoints.enum";
 import { WsdlPathResolver } from "./wsdl-path-resolver";
 import { WsdlPathEnum } from "./wsdl-path.enum";
 
@@ -9,19 +8,17 @@ export type SoapClientParams = {
   // url?: EndpointsEnum;
 };
 
-export class SoapClient<T extends Client> extends Client {}
-
 export class SoapClientFacade {
   private construct() {}
   public static async create<T extends Client>({
     wsdl,
     options,
   }: // url,
-  SoapClientParams): Promise<SoapClient<T>> {
+  SoapClientParams): Promise<T> {
     return (await createClientAsync(
       WsdlPathResolver.get(wsdl),
       options
       // url
-    )) as SoapClient<T>;
+    )) as T;
   }
 }

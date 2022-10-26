@@ -1,5 +1,14 @@
+import { WSAuthTokens } from "./auth/types";
+
+export type Context = Omit<AfipContext, "ticketPath"> & { ticketPath?: string };
+
 export type AfipContext = {
-  production: boolean;
+  /**
+   * Flag for production or testing environment
+   *
+   * @var boolean
+   **/
+  production?: boolean;
 
   /**
    * File name for the X.509 certificate in PEM format
@@ -21,4 +30,21 @@ export type AfipContext = {
    * @var int
    **/
   cuit: number;
+
+  /**
+   * Tokens object object if you have one created before
+   *
+   * @var authTokens
+   **/
+  authTokens?: WSAuthTokens;
+
+  /**
+   * Flag that if is true, the access tickets data is handled by the developer, otherwise is saved localy.
+   */
+  handleTicket?: boolean;
+
+  /**
+   * The path of the auth obj if the package is auto managed
+   */
+  ticketPath: string;
 };

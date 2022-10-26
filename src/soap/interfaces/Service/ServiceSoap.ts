@@ -224,6 +224,11 @@ export interface IServiceSoapSoap extends Client {
     options?: any,
     extraHeaders?: any
   ) => void;
+  FEDummyAsync: (
+    input: IFEDummyInput,
+    options?: any,
+    extraHeaders?: any
+  ) => Promise<[IFEDummyOutput, string, { [k: string]: any }, string]>;
   FECompUltimoAutorizado: (
     input: IFECompUltimoAutorizadoInput,
     cb: (
@@ -235,6 +240,13 @@ export interface IServiceSoapSoap extends Client {
     options?: any,
     extraHeaders?: any
   ) => void;
+  FECompUltimoAutorizadoAsync: (
+    input: IFECompUltimoAutorizadoInput,
+    options?: any,
+    extraHeaders?: any
+  ) => Promise<
+    [IFECompUltimoAutorizadoOutput, string, { [k: string]: any }, string]
+  >;
   FECompConsultar: (
     input: IFECompConsultarInput,
     cb: (
@@ -367,6 +379,13 @@ export interface IServiceSoapSoap extends Client {
     options?: any,
     extraHeaders?: any
   ) => void;
+  FEParamGetPtosVentaAsync: (
+    input: IFEParamGetPtosVentaInput,
+    options?: any,
+    extraHeaders?: any
+  ) => Promise<
+    [IFEParamGetPtosVentaOutput, string, { [k: string]: any }, string]
+  >;
   FEParamGetPtosVenta: (
     input: IFEParamGetPtosVentaInput,
     cb: (
@@ -524,20 +543,20 @@ export namespace ServiceSoapTypes {
     /** http://ar.gov.afip.dif.FEV1/#s:double(undefined) */
     ImpIVA: number;
     /** http://ar.gov.afip.dif.FEV1/#s:string(undefined) */
-    FchServDesde: string;
+    FchServDesde?: string;
     /** http://ar.gov.afip.dif.FEV1/#s:string(undefined) */
-    FchServHasta: string;
+    FchServHasta?: string;
     /** http://ar.gov.afip.dif.FEV1/#s:string(undefined) */
-    FchVtoPago: string;
+    FchVtoPago?: string;
     /** http://ar.gov.afip.dif.FEV1/#s:string(undefined) */
     MonId: string;
     /** http://ar.gov.afip.dif.FEV1/#s:double(undefined) */
     MonCotiz: number;
-    CbtesAsoc: ServiceSoapTypes.ICbtesAsoc;
-    Tributos: ServiceSoapTypes.ITributos;
-    Iva: ServiceSoapTypes.IIva;
-    Opcionales: ServiceSoapTypes.IOpcionales;
-    Compradores: ServiceSoapTypes.ICompradores;
+    CbtesAsoc?: ServiceSoapTypes.ICbtesAsoc;
+    Tributos?: ServiceSoapTypes.ITributos;
+    Iva?: ServiceSoapTypes.IIva;
+    Opcionales?: ServiceSoapTypes.IOpcionales;
+    Compradores?: ServiceSoapTypes.ICompradores;
     PeriodoAsoc?: ServiceSoapTypes.IPeriodoAsoc;
   }
   export interface IFeCAEReq {

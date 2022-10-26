@@ -1,21 +1,31 @@
+import { Parser } from "./../utils/parser";
+import { promises as fs } from "fs";
+import { resolve } from "path";
 import { SoapClientFacade } from "../soap/soap-client-facade";
-import { WsdlPathResolver } from "../soap/wsdl-path-resolver";
-import { IAccessTicket } from "../interfaces";
-import moment from "moment";
-import { ILoginCmsSoap } from "../soap/interfaces/LoginCMSService/LoginCms";
-import { Parser } from "../utils/parser";
-import forge from "node-forge";
+import {
+  ILoginCmsReturn,
+  ILoginCmsSoap,
+  LoginTicketResponse,
+} from "../soap/interfaces/LoginCMSService/LoginCms";
 import { AccessTicket } from "./access-ticket";
 import { EndpointsEnum } from "../endpoints.enum";
 import { ServiceNamesEnum } from "../soap/service-names.enum";
-import { WSAuthParam } from "./ws-auth-param";
 import { WsdlPathEnum } from "../soap/wsdl-path.enum";
-import { GetAccessTicketParam } from "./get-access-ticket-param";
+import { Cryptography } from "../utils/crypt-data";
+import { AfipContext } from "../afip-context";
 
-export class AfipAuthenticator {
-  private static async getAuthClient(prod = false) {
+export class AfipAuth {
+  constructor(private readonly context: AfipContext) {}
+
+  private async getAuthClient() {
     return SoapClientFacade.create<ILoginCmsSoap>({
-      wsdl: prod ? WsdlPathEnum.WSFE : WsdlPathEnum.WSFE_TEST,
+      wsdl: WsdlPathEnum.WSAA,
+      options: {
+        disableCache: true,
+        endpoint: this.context.production
+          ? EndpointsEnum.WSAA
+          : EndpointsEnum.WSAA_TEST,
+      },
     });
   }
 
@@ -24,7 +34,7 @@ export class AfipAuthenticator {
    * @param serviceName
    * @returns
    */
-  private static getTRA(serviceName: ServiceNamesEnum) {
+  private getTRA(serviceName: ServiceNamesEnum) {
     const date = new Date();
     return {
       loginTicketRequest: {
@@ -47,31 +57,9 @@ export class AfipAuthenticator {
    * @param cert
    * @param key
    */
-  private static signTRA(traXml: string, cert: string, key: string): string {
-    const p7 = forge.pkcs7.createSignedData();
-    p7.content = forge.util.createBuffer(traXml, "utf8");
-    p7.addCertificate(cert);
-    p7.addSigner({
-      authenticatedAttributes: [
-        {
-          type: forge.pki.oids.contentType,
-          value: forge.pki.oids.data,
-        },
-        {
-          type: forge.pki.oids.messageDigest,
-        },
-        {
-          type: forge.pki.oids.signingTime,
-          value: new Date() as any,
-        },
-      ],
-      certificate: cert,
-      digestAlgorithm: forge.pki.oids.sha256,
-      key: key,
-    });
-    p7.sign();
-    const bytes = forge.asn1.toDer(p7.toAsn1()).getBytes();
-    return Buffer.from(bytes, "binary").toString("base64");
+  private signTRA(traXml: string): string {
+    const crypto = new Cryptography(this.context.cert, this.context.key);
+    return crypto.sign(traXml);
   }
 
   /**
@@ -81,63 +69,64 @@ export class AfipAuthenticator {
    * @param key
    * @returns
    */
-  public static async getAccessTicket({
-    serviceName,
-    cert,
-    key,
-    prod = false,
-  }: GetAccessTicketParam): Promise<IAccessTicket> {
+  public async getAccessTicket(
+    serviceName: ServiceNamesEnum
+  ): Promise<AccessTicket> {
     // Create amd sign TRA
-    const traXml = await Parser.jsonToXml(
-      AfipAuthenticator.getTRA(serviceName)
-    );
-    const signedTRA = AfipAuthenticator.signTRA(traXml, cert, key);
+    const traXml = await Parser.jsonToXml(this.getTRA(serviceName));
+    const signedTRA = this.signTRA(traXml);
 
     // Request TR
-    const client = await AfipAuthenticator.getAuthClient(prod);
+    const client = await this.getAuthClient();
     const [loginCmsResult] = await client.loginCmsAsync({ in0: signedTRA });
-    return new AccessTicket(loginCmsResult.loginCmsReturn);
+    const loginReturn = await Parser.xmlToJson<LoginTicketResponse>(
+      loginCmsResult.loginCmsReturn
+    );
+
+    return new AccessTicket(loginReturn.loginticketresponse);
   }
 
-  /**
-   * Check if ticket access is valid by expiration date
-   * @param ta
-   * @returns
-   */
-  public static checkAccessTicket(ta: IAccessTicket): boolean {
-    return moment(ta.getExpiration()).isBefore(new Date());
+  public createFileName(serviceName: ServiceNamesEnum): string {
+    return `TA-${this.context.cuit.toString()}-${serviceName}${
+      this.context.production ? "-production" : ""
+    }.json`;
   }
 
-  /**
-   * Make auth soap object for afip ws.
-   *
-   * @param string SOAP Service to use
-   * @return Auth object with data required for WS protected
-   **/
-  public static async getWSAuthParam(
-    cuit: number,
-    ticket: IAccessTicket
-  ): Promise<WSAuthParam> {
-    return {
-      Auth: {
-        Token: ticket.getToken(),
-        Sign: ticket.getSign(),
-        Cuit: cuit,
-      },
-    };
+  public async saveLocalAccessTicket(
+    { header, credentials }: AccessTicket,
+    serviceName: ServiceNamesEnum
+  ): Promise<void> {
+    try {
+      fs.mkdir(this.context.ticketPath, { recursive: true });
+    } catch (error) {
+      throw error;
+    }
+
+    await fs.writeFile(
+      resolve(this.context.ticketPath, this.createFileName(serviceName)),
+      JSON.stringify({ header, credentials }),
+      "utf8"
+    );
   }
 
-  /**
-   * Authenticate and get WS Auth param object at the same time.
-   *
-   * @param string SOAP Service to use
-   * @return Auth object with data required for WS protected
-   **/
-  public static async authAndGetWsAuthParam(
-    cuit: number,
-    ticketParam: GetAccessTicketParam
-  ): Promise<WSAuthParam> {
-    const ticket = await AfipAuthenticator.getAccessTicket(ticketParam);
-    return AfipAuthenticator.getWSAuthParam(cuit, ticket);
+  public async getLocalAccessTicket(
+    serviceName: ServiceNamesEnum
+  ): Promise<AccessTicket | undefined> {
+    let data: string;
+    try {
+      data = await fs.readFile(
+        resolve(this.context.ticketPath, this.createFileName(serviceName)),
+        "utf8"
+      );
+    } catch {
+      return undefined;
+    }
+
+    try {
+      const obj: ILoginCmsReturn = JSON.parse(data);
+      return new AccessTicket(obj);
+    } catch (error) {
+      throw new Error("Invalid access ticket format read");
+    }
   }
 }

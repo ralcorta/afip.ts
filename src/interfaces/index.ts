@@ -1,10 +1,17 @@
-import { IFECAESolicitarOutput } from "./../soap/interfaces/Service/ServiceSoap";
+import {
+  IFECAESolicitarOutput,
+  IFEParamGetPtosVentaOutput,
+  ServiceSoapTypes,
+} from "./../soap/interfaces/Service/ServiceSoap";
 import { ILoginCmsReturn } from "../soap/interfaces/LoginCMSService/LoginCms";
+import { WSAuthTokens } from "../auth/types";
 
 export interface IAccessTicket extends ILoginCmsReturn {
   getSign(): string;
   getToken(): string;
   getExpiration(): Date;
+  getAuthKeyProps(): WSAuthTokens;
+  isAccessTicketValid(ta: IAccessTicket): boolean;
 }
 
 export interface IVoucher {
@@ -23,16 +30,16 @@ export interface IVoucher {
   ImpOpEx: number;
   ImpIVA: number;
   ImpTrib: number;
-  FchServDesde: string;
-  FchServHasta: string;
-  FchVtoPago: string;
+  FchServDesde?: string;
+  FchServHasta?: string;
+  FchVtoPago?: string;
   MonId: string;
   MonCotiz: number;
-  CbtesAsoc: ICbtesAsoc[];
-  Tributos: ITributo[];
-  Iva: IIva[];
-  Opcionales: IOpcional[];
-  Compradores: IComprador[];
+  CbtesAsoc?: ICbtesAsoc[];
+  Tributos?: ITributo[];
+  Iva?: IIva[];
+  Opcionales?: IOpcional[];
+  Compradores?: IComprador[];
 }
 
 export interface ICbtesAsoc {
@@ -73,3 +80,5 @@ export interface ICreateVoucherResult {
   cae: string;
   caeFchVto: string;
 }
+
+export interface IGetSalesPointsResult extends IFEParamGetPtosVentaOutput {}

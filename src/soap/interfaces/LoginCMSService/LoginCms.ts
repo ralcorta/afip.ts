@@ -8,7 +8,11 @@ export interface IloginCmsInput {
 
 export interface IloginCmsOutput {
   /** xsd:string(undefined) */
-  loginCmsReturn: ILoginCmsReturn;
+  loginCmsReturn: string; //ILoginCmsReturn -> LoginTicketResponse;
+}
+
+export interface LoginTicketResponse {
+  loginticketresponse: ILoginCmsReturn;
 }
 
 export interface ILoginCmsReturn {
