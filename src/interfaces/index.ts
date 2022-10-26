@@ -3,16 +3,6 @@ import {
   IFEParamGetPtosVentaOutput,
   ServiceSoapTypes,
 } from "./../soap/interfaces/Service/ServiceSoap";
-import { ILoginCmsReturn } from "../soap/interfaces/LoginCMSService/LoginCms";
-import { WSAuthTokens } from "../auth/types";
-
-export interface IAccessTicket extends ILoginCmsReturn {
-  getSign(): string;
-  getToken(): string;
-  getExpiration(): Date;
-  getAuthKeyProps(): WSAuthTokens;
-  isAccessTicketValid(ta: IAccessTicket): boolean;
-}
 
 export interface IVoucher {
   CantReg: number;

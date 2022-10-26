@@ -1,6 +1,5 @@
 import { resolve } from "path";
 import { AfipContext, Context } from "./afip-context";
-import { HandlerMethodEnum } from "./auth/handler-method.enum";
 import { ElectronicBillingService } from "./services/electronic-billing.service";
 
 export class Afip {

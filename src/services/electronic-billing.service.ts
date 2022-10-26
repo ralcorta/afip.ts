@@ -137,16 +137,4 @@ export class ElectronicBillingService extends AfipService<IServiceSoapSoap> {
 
     return await this.createVoucher(req);
   }
-
-  // protected async execProtectedCall<K extends (...params: any[]) => any>(
-  //   f: K,
-  //   params: Parameters<K>
-  // ): Promise<WsOutputSplit<Awaited<ReturnType<K>>>> {
-  //   const authParam = await this.getAuthTokens();
-  //   const res: WsOutput<ReturnType<K>> = await f({
-  //     ...authParam,
-  //     ...params,
-  //   });
-  //   return res[0];
-  // }
 }

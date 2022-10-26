@@ -31,6 +31,7 @@ export class AfipAuth {
 
   /**
    * Tokent request authorization
+   *
    * @param serviceName
    * @returns
    */
@@ -53,6 +54,7 @@ export class AfipAuth {
 
   /**
    * Sign tokent request authorization
+   *
    * @param serviceName
    * @param cert
    * @param key
@@ -64,6 +66,7 @@ export class AfipAuth {
 
   /**
    * Get token authorization
+   *
    * @param serviceName
    * @param cert
    * @param key
@@ -86,12 +89,24 @@ export class AfipAuth {
     return new AccessTicket(loginReturn.loginticketresponse);
   }
 
+  /**
+   * Create the file name with a standard format
+   *
+   * @param serviceName name from Afip WS
+   * @returns
+   */
   public createFileName(serviceName: ServiceNamesEnum): string {
     return `TA-${this.context.cuit.toString()}-${serviceName}${
       this.context.production ? "-production" : ""
     }.json`;
   }
 
+  /**
+   * Save the access ticket locally using file system
+   *
+   * @param ticket accessmticket header and credentials
+   * @param serviceName name from Afip WS
+   */
   public async saveLocalAccessTicket(
     { header, credentials }: AccessTicket,
     serviceName: ServiceNamesEnum
@@ -109,6 +124,15 @@ export class AfipAuth {
     );
   }
 
+  /**
+   * Get the access ticket locally using file system.
+   * If the file is not found, the catch take the error and return undefined.
+   *
+   * ** Check if the folder has the correct access permission. **
+   *
+   * @param serviceName name from Afip WS
+   * @returns access ticket or undefined if it is not there
+   */
   public async getLocalAccessTicket(
     serviceName: ServiceNamesEnum
   ): Promise<AccessTicket | undefined> {

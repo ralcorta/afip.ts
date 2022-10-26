@@ -39,7 +39,7 @@ export type AfipContext = {
   authTokens?: WSAuthTokens;
 
   /**
-   * Flag that if is true, the access tickets data is handled by the developer, otherwise is saved localy.
+   * Flag that if is true, the access tickets data is handled by the developer, otherwise is saved locally.
    */
   handleTicket?: boolean;
 

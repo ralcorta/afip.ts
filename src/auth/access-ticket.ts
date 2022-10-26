@@ -5,8 +5,15 @@ import {
   ILoginCmsReturnHeaders,
 } from "../soap/interfaces/LoginCMSService/LoginCms";
 
-import { IAccessTicket } from "../interfaces";
 import { WSAuthTokens } from "./types";
+
+export interface IAccessTicket extends ILoginCmsReturn {
+  getSign(): string;
+  getToken(): string;
+  getExpiration(): Date;
+  getAuthKeyProps(): WSAuthTokens;
+  isAccessTicketValid(ta: IAccessTicket): boolean;
+}
 
 export class AccessTicket implements IAccessTicket {
   header: ILoginCmsReturnHeaders;
@@ -45,11 +52,13 @@ export class AccessTicket implements IAccessTicket {
     };
   }
 
-  public isAccessTicketValid(ta: IAccessTicket): boolean {
-    return AccessTicket.hasExpired(ta.getExpiration().toISOString());
+  public isAccessTicketValid(): boolean {
+    return AccessTicket.hasExpired(this.getExpiration().toISOString());
   }
 
   public static hasExpired(expirationDateIsoFormat: string): boolean {
+    console.log(moment(expirationDateIsoFormat).isAfter(new Date()));
+
     return moment(expirationDateIsoFormat).isAfter(new Date());
   }
 }

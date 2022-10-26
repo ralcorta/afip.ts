@@ -26,21 +26,21 @@ describe("Electronic Billings Service Test", () => {
   beforeAll(async () => {});
   afterAll(async () => {});
 
-  describe("Method Test - createVoucher", () => {
-    it("should create a voucher from correct params", async () => {
-      const lastVaucher = await afip.electronicBillingService.getLastVoucher(
-        2,
-        11
-      );
-      const voucher = await afip.electronicBillingService.createVoucher({
-        ...data,
-        CbteDesde: lastVaucher.FECompUltimoAutorizadoResult.CbteNro + 1,
-        CbteHasta: lastVaucher.FECompUltimoAutorizadoResult.CbteNro + 1,
-      });
-      console.dir(voucher, { depth: 50 });
-      expect(voucher).not.toBeNull();
-    });
-  });
+  // describe("Method Test - createVoucher", () => {
+  //   it("should create a voucher from correct params", async () => {
+  //     const lastVaucher = await afip.electronicBillingService.getLastVoucher(
+  //       2,
+  //       11
+  //     );
+  //     const voucher = await afip.electronicBillingService.createVoucher({
+  //       ...data,
+  //       CbteDesde: lastVaucher.FECompUltimoAutorizadoResult.CbteNro + 1,
+  //       CbteHasta: lastVaucher.FECompUltimoAutorizadoResult.CbteNro + 1,
+  //     });
+  //     console.dir(voucher, { depth: 50 });
+  //     expect(voucher).not.toBeNull();
+  //   });
+  // });
 
   describe("Method Test - getLastVoucher", () => {
     it("should get last voucher created", async () => {

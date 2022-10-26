@@ -25,7 +25,7 @@ export interface IFEDummyOutput {
 }
 
 export interface IFECompUltimoAutorizadoInput {
-  Auth: ServiceSoapTypes.IAuth;
+  // Auth: ServiceSoapTypes.IAuth;
   /** s:int(undefined) */
   PtoVta: number;
   /** s:int(undefined) */

@@ -2,7 +2,6 @@ import { Client } from "soap";
 import { AfipContext } from "../afip-context";
 import { AccessTicket } from "../auth/access-ticket";
 import { AfipAuth } from "../auth/afip-auth";
-import { HandlerMethodEnum } from "../auth/handler-method.enum";
 import { WSAuthParam, WSAuthTokens } from "../auth/types";
 import { EndpointsEnum } from "../endpoints.enum";
 import { ServiceNamesEnum } from "../soap/service-names.enum";
@@ -55,6 +54,10 @@ export class AfipService<T extends Client> {
     return this._soapCliente;
   }
 
+  /**
+   * I generate signatures through the WSAA. If handleTicket is not defined, the function will save the tokens locally.
+   * @returns tokens
+   */
   public async logIn(): Promise<WSAuthTokens> {
     if (!this._tokens) {
       if (this.context.handleTicket)
@@ -63,7 +66,8 @@ export class AfipService<T extends Client> {
         );
 
       let ticket = await this._afipAuth.getLocalAccessTicket(this._serviceName);
-      if (!ticket) {
+
+      if (!ticket?.isAccessTicketValid()) {
         ticket = await this._afipAuth.getAccessTicket(this._serviceName);
         await this._afipAuth.saveLocalAccessTicket(ticket, this._serviceName);
       }
