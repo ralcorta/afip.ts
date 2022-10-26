@@ -2,66 +2,122 @@
 
 [![npm](https://img.shields.io/npm/v/Afip-SDK.svg?style=flat-square)](https://npmjs.org/package/Afip-SDK)
 
-This plugin provide a easy way to use AFIP web sockets.
+<br />
+<p align="center">
+  <a href="https://github.com/valiulab-core/Afip-SDK">
+    <img src="https://user-images.githubusercontent.com/19806540/198080937-468e851b-2ae4-40a7-b2c5-cb929ff7749a.png" alt="Afip.js" width="230">
+  </a>
 
-## Doc
+  <h3 align="center">Afip SDK</h3>
 
-For more documentation, you can view the [Github page](https://valiulab-core.github.io/Afip-SDK/) of this repository.
+  <p align="center">
+    Package que provee una interfaz para consumir y usar los Web Services de AFIP
+    <br />
+    <a href="https://valiulab-core.github.io/Afip-SDK">Documentacion</a>
+    <br />
+    <br />
+    <small> 
+        Inspirado en <a href="https://github.com/AfipSDK/afip.js">afip.js</a> 
+      <br />
+      <a href="https://github.com/valiulab-core/Afip-SDK/issues">Reportar un bug</a>
+    </small>
+  </p>
+</p>
 
-## Installation
+<!-- [afip.js](https://github.com/AfipSDK/afip.js) -->
 
-### NPM
+#### Servicios disponibles
+
+- [Web Services](https://www.afip.gob.ar/ws/documentacion/arquitectura-general.asp)
+  - [Autenticación](https://www.afip.gob.ar/ws/WSAA/WSAAmanualDev.pdf)
+  - [Factura electronica](https://www.afip.gob.ar/fe/ayuda//documentos/Manual-desarrollador-V.2.21.pdf)
+  - Comming soon...
+
+## Guia
+
+### Intalación
+
+##### NPM
 
 ```sh
-
 npm i Afip-SDK --save
-
 ```
 
-### Yarn
+##### Yarn
 
 ```sh
-
 yarn add Afip-SDK
-
 ```
 
-## Usage
+### Uso de la SDK
 
-#### Basic Use
+##### Requisitos previos
+
+Se debe tener los certificados emitidos por AFIP, ya sean para los servidores de homologacion o produccion, para poder pasarselos como parametro al paquete y que este haga uso de ellos para comunicarse con los web services.
+
+##### Ejemplo basico
+
+Ejemplo de como generar factura electronica:
 
 ```ts
-// In progress...
+const afip: Afip = new Afip({
+  key: "private_key_content",
+  cert: "crt_content",
+  cuit: 20111111112,
+});
+
+const voucherData = {
+  // invoice data
+};
+
+const voucher = await afip.electronicBillingService.createInvoice(voucherData);
 ```
 
-## Tests
+<br>
 
-Run the tests from the root directory:
+La clase Afip recibe como parametro en el constructor el contexto (Ver type). Ahi esta explicado todas las acciones que puede tomar afip.
 
-```sh
-npm test
-```
+#### Comportamientos
 
-## Contributing & Development
+Para poder comunicarse con los Web Services de AFIP se debe autenticar con su servicio de [WSAA](https://www.afip.gob.ar/ws/WSAA/WSAAmanualDev.pdf) el cual retorna los tokens necesarios con una validez de hasta 12 horas.
+Este servicio de autenticacion solo puede ser llamado cada 2 minutos en los servidores de produccion y hasta 10 minutos en los servidores de homologiacion.
 
-### Contributing
+Para esto otros paquetes internamente generan archivos donde guardan estos tokens de manera local en el servidor usando el file sistem de Node (require('fs')). Esto es un problema cuando se ejecuta sobre funciones serverless como las Lambdas de AWS.
 
-Found a bug or want to suggest something? Take a look first on the current and closed [issues](https://github.com/valiulab-core/Afip-SDK/issues). If it is something new, please [submit an issue](https://github.com/valiulab-core/Afip-SDK/issues/new).
+Este paquete permite manejar los tickets de acceso (TA que devuelve con los tokens AFIP) de manera personals si se desea, permitiendo tomar datos y guardarlos donde les sea mas conveniente, como en una BD, un S3, o algun storage provider.
 
-### Develop
+Aun asi, si no se quiere manejar personalmente y que se guarden en el servidor, pueden no especificar nada en el contexto de la clase Afip al momento de instanciarlo y este guardara JSONs con los tokens dentro de la carpeta del paquete (Por default root/src/auth/tickets, aunque se puede cambiar desde el constructor).
 
-It will be awesome if you can help us evolve `Afip-SDK`. Want to help?
+## Documentacion Afip
 
-1. [Fork it](https://github.com/valiulab-core/Afip-SDK).
+Autenticacion: https://www.afip.gob.ar/ws/WSAA/WSAAmanualDev.pdf
+
+Facturacion electrónica: https://www.afip.gob.ar/fe/ayuda//documentos/Manual-desarrollador-V.2.21.pdf
+
+## Desarrollo y contribuciones
+
+### Contribuciones
+
+Si encontras un bug o desaes sugerir algo, revisa de que no haya [issues](https://github.com/valiulab-core/Afip-SDK/issues) con el mismo tema, y de ser asi [puedes generar uno aqui](https://github.com/valiulab-core/Afip-SDK/issues/new).
+
+### Desarrollo
+
+Seria genial si puedes ayudarnos mejorando `Afip-SDK`. ¿Como hacer?
+
+1. [Clonar](https://github.com/valiulab-core/Afip-SDK).
 
 2. `npm install`.
 
-3. Hack away.
+3. Rompela escribiendo tu codigo.
 
-4. Run the tests: `npm test`.
+4. Correr los test: `npm test`.
 
-5. Create a [Pull Request](https://github.com/valiulab-core/Afip-SDK/compare).
+5. Cear un [Pull Request](https://github.com/valiulab-core/Afip-SDK/compare).
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
+Este proyecto esta bajo la licencia `MIT` - Ver [LICENSE](LICENSE) para mas detalles.
+
+<small>
+Este software y sus desarrolladores no tienen ninguna relación con la AFIP.
+</small>

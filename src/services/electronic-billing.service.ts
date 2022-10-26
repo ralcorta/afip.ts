@@ -137,4 +137,18 @@ export class ElectronicBillingService extends AfipService<IServiceSoapSoap> {
 
     return await this.createVoucher(req);
   }
+
+  /**
+   * Alias for createVoucher method.
+   */
+  async createInvoice(req: IVoucher) {
+    return this.createVoucher(req);
+  }
+
+  /**
+   * Alias for createVoucher method.
+   */
+  async createNextInvoice(req: IVoucher) {
+    return this.createNextVoucher(req);
+  }
 }
