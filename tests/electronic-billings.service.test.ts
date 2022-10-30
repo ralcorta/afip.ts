@@ -44,9 +44,17 @@ describe("Electronic Billings Service Test", () => {
 
   describe("Method Test - getLastVoucher", () => {
     it("should get last voucher created", async () => {
-      const voucher = await afip.electronicBillingService.getLastVoucher(2, 11);
-      console.dir(voucher, { depth: 50 });
-      expect(voucher).not.toBeNull();
+      try {
+        const voucher = await afip.electronicBillingService.getLastVoucher(
+          2,
+          11
+        );
+        console.dir(voucher, { depth: 50 });
+        expect(voucher).not.toBeNull();
+      } catch (error) {
+        console.log(error);
+        throw error;
+      }
     });
   });
 });

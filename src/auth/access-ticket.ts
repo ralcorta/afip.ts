@@ -57,8 +57,6 @@ export class AccessTicket implements IAccessTicket {
   }
 
   public static hasExpired(expirationDateIsoFormat: string): boolean {
-    console.log(moment(expirationDateIsoFormat).isAfter(new Date()));
-
     return moment(expirationDateIsoFormat).isAfter(new Date());
   }
 }
