@@ -8,7 +8,7 @@ Para usar la SDK debemos instanciar la clase `Afip` con los siguientes minimos d
 - [`cert`](https://www.afip.gob.ar/ws/documentacion/certificados.asp) : Contenido del certificado generado en Afip
 - `cuit` : Cuit del usuario
 
-Esto data como resultado un objecto con los respectivos servicios disponibles para usar, como por ejemplo `electronicBillingService`:
+Esto data como resultado un objeto con los respectivos servicios disponibles para usar, como por ejemplo `electronicBillingService`:
 
 ```ts
 import { Afip } from "afip.ts";
