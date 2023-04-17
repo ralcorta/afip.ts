@@ -4,9 +4,9 @@
 
 Actualmente la SDK soporta los siguientes servicios de afip:
 
-- Web Serices - [Doc](https://www.afip.gob.ar/ws/documentacion/catalogo.asp)
+- Web Services - [Doc](https://www.afip.gob.ar/ws/documentacion/catalogo.asp)
   - Autenticación - [Doc](https://www.afip.gob.ar/ws/WSAA/WSAAmanualDev.pdf)
-  - Factura electronica - [Doc](https://www.afip.gob.ar/fe/ayuda//documentos/Manual-desarrollador-V.2.21.pdf)
+  - Factura electrónica - [Doc](https://www.afip.gob.ar/fe/ayuda//documentos/Manual-desarrollador-V.2.21.pdf)
   - Padron alcance 4 - [Doc](https://www.afip.gob.ar/ws/ws_sr_padron_a4/manual_ws_sr_padron_a4_v1.2.pdf)
   - Padron alcance 5 - [Doc](https://www.afip.gob.ar/ws/ws_sr_padron_a5/manual_ws_sr_padron_a5_v1.0.pdf)
   - Padron alcance 10 - [Doc](https://www.afip.gob.ar/ws/ws_sr_padron_a10/manual_ws_sr_padron_a10_v1.1.pdf)
