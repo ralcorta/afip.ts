@@ -10,3 +10,5 @@ src/auth/tickets
 tests/mocks/credentials
 
 docs/.vitepress/dist
+
+test-invoice.pdf
