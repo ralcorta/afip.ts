@@ -41,7 +41,7 @@ export class PDFInvoice {
   static async generateInvoice() {
     // info: ServiceSoap12Types.IFECompConsultarResult // cuit: number,
     const htmlContent = readFileSync(
-      `${__dirname}/../assets/opt4/index.html`,
+      `${__dirname}/../assets/invoice.html`,
       "utf8"
     );
 
