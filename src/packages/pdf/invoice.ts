@@ -3,12 +3,7 @@ import { PDF } from "../utils/pdf";
 import { ServiceSoap12Types } from "../soap/interfaces/Service/ServiceSoap12";
 import { QR } from "../utils/qr";
 import fs from "fs/promises";
-import Handlebars from "handlebars";
-import { logger } from "../utils/logger";
-
-Handlebars.registerHelper("row", function (base, index, amount) {
-  return base + index * amount;
-});
+import { TemplateCompiler } from "./template/compiler";
 
 interface QRContent {
   ver: number;
@@ -41,7 +36,7 @@ export class PDFInvoice {
   static async generateInvoice() {
     // info: ServiceSoap12Types.IFECompConsultarResult // cuit: number,
     const htmlContent = readFileSync(
-      `${__dirname}/../assets/invoice_a_b.html`,
+      `${__dirname}/assets/invoice_a_b.html`,
       "utf8"
     );
     const qrContentBase64 = Buffer.from(
@@ -201,14 +196,15 @@ export class PDFInvoice {
         caeDate: "15/12/2023",
       },
     };
-    const template = Handlebars.compile(htmlContent);
-    const htmlRendered = template(invoiceParams);
+
+    const compiler = new TemplateCompiler(htmlContent, invoiceParams);
+
     try {
-      const pdfBuffer = await PDF.generateFromHTML(htmlRendered);
-      logger.info("PDF generated successfully");
+      const pdfBuffer = await PDF.generateFromHTML(compiler.execute());
+      console.log("PDF generated successfully");
       await fs.writeFile("test-invoice.pdf", pdfBuffer);
     } catch (error) {
-      logger.error("Error generating PDF:", error);
+      console.log("Error generating PDF:", error);
     }
   }
 }
