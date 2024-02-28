@@ -297,59 +297,70 @@
     </div>
 
     <div style="left:263.78px;top:30px" class="cls_003"><span class="cls_003">ORIGINAL</span></div>
-    <div style="left:289.84px;top:55px" class="cls_009"><span class="cls_009">C</span></div>
+    <div style="left:289.84px;top:55px" class="cls_009"><span class="cls_009">{{ header.type }}</span></div>
     <div style="left:341.00px;top:61px" class="cls_004"><span class="cls_004">FACTURA</span></div>
-    <div style="left:20px;top:57px; text-align: center;max-width: 251;" class="cls_004"><span class="cls_004"> ALCORTA
-        RODRIGO
-        VICTOR</span></div>
-    <div style="left:281px;top:80px" class="cls_010"><span class="cls_010">COD. 001</span></div>
+    <div style="left:20px;top:57px; text-align: center;max-width: 251;" class="cls_004"><span class="cls_004">
+        {{ header.business.businessName }}</span></div>
+    <div style="left:281px;top:80px" class="cls_010"><span class="cls_010">COD. {{ header.code }}</span></div>
     <div style="left:341.00px;top:92px" class="cls_002"><span class="cls_002">Punto de Venta:</span></div>
-    <div style="left:417.00px;top:92px" class="cls_005"><span class="cls_005">1</span></div>
+    <div style="left:417.00px;top:92px" class="cls_005"><span class="cls_005">{{ header.business.salesPoint }}</span>
+    </div>
     <div style="left:461.00px;top:92px" class="cls_002"><span class="cls_002">Comp. Nro:</span></div>
-    <div style="left:517.00px;top:92px" class="cls_005"><span class="cls_005">00000001</span></div>
+    <div style="left:517.00px;top:92px" class="cls_005"><span class="cls_005">{{ header.business.invoiceNumber
+        }}</span></div>
     <div style="left:21.00px;top:109px" class="cls_002"><span class="cls_002">Razón Social:</span><span class="cls_006">
-        Rodrigo Victor Alcorta </span></div>
+        {{ header.business.name }} </span></div>
     <div style="left:341.00px;top:108px" class="cls_002"><span class="cls_002">Fecha de Emisión:</span></div>
-    <div style="left:428.00px;top:107px" class="cls_005"><span class="cls_005">01/01/1990</span></div>
+    <div style="left:428.00px;top:107px" class="cls_005"><span class="cls_005">{{ header.business.emitDate }}</span>
+    </div>
     <div style="left:21.00px;top:133px" class="cls_002">
       <span class="cls_002">Domicilio
         Comercial:</span>
     </div>
     <div style="left:117px;top:133px;max-width: 160;" class="cls_002">
-      <span class="cls_006"> Monte 1234, Lugar falso, Buenos Aires
+      <span class="cls_006">
+        {{ header.business.address }}
       </span>
     </div>
 
     <div style="left:341.00px;top:131px" class="cls_002"><span class="cls_002">CUIT:</span></div>
-    <div style="left:373.00px;top:131px" class="cls_006"><span class="cls_006">20111111112</span></div>
+    <div style="left:373.00px;top:131px" class="cls_006"><span class="cls_006">{{ header.business.cuit }}</span></div>
     <!-- <div style="left:116.00px;top:143px" class="cls_006"><span class="cls_006"> </span></div> -->
     <div style="left:341.00px;top:143px" class="cls_002"><span class="cls_002">Ingresos Brutos:</span></div>
-    <div style="left:419.00px;top:143px" class="cls_006"><span class="cls_006">20111111112</span></div>
-    <div style="left:341.00px;top:155px" class="cls_002"><span class="cls_002">Fecha de Inicio de Actividades:</span>
+    <div style="left:419.00px;top:143px" class="cls_006"><span class="cls_006">{{ header.business.grossIncome
+        }}</span></div>
+    <div style="left:341.00px;top:155px" class="cls_002"><span class="cls_002">Fecha de
+        Inicio de Actividades:</span>
     </div>
-    <div style="left:482.00px;top:155px" class="cls_006"><span class="cls_006">01/01/1990</span></div>
-    <div style="left:21.00px;top:158px" class="cls_002"><span class="cls_002">Condición frente al IVA: Excento</span>
+    <div style="left:482.00px;top:155px" class="cls_006"><span class="cls_006">{{ header.business.startDateActivities
+        }}</span></div>
+    <div style="left:21.00px;top:158px" class="cls_002"><span class="cls_002">Condición frente al IVA: {{
+        header.business.iva
+        }}</span>
     </div>
 
     <div style="left:21.00px;top:177px" class="cls_005"><span class="cls_005">Período Facturado Desde:</span></div>
-    <div style="left:159.00px;top:177px" class="cls_007"><span class="cls_007">01/01/1900</span></div>
-    <div style="left:232.44px;top:177px" class="cls_005"><span class="cls_005">Hasta:</span><span
-        class="cls_007">01/01/2024</span></div>
+    <div style="left:159.00px;top:177px" class="cls_007"><span class="cls_007">{{ header.business.invoicePeriodStart
+        }}</span>
+    </div>
+    <div style="left:232.44px;top:177px" class="cls_005"><span class="cls_005">Hasta:</span><span class="cls_007">{{
+        header.business.invoicePeriodEnd }}</span></div>
     <div style="left:362.96px;top:177px" class="cls_005"><span class="cls_005">Fecha de Vto. para el pago:</span></div>
-    <div style="left:495.00px;top:177px" class="cls_007"><span class="cls_007">02/01/1900</span></div>
+    <div style="left:495.00px;top:177px" class="cls_007"><span class="cls_007">{{ header.business.dueDate }}</span>
+    </div>
 
     <div style="left:21.00px;top:197px" class="cls_002"><span class="cls_002">CUIT:</span></div>
-    <div style="left:52.00px;top:197px" class="cls_006"><span class="cls_006">11111111</span></div>
+    <div style="left:52.00px;top:197px" class="cls_006"><span class="cls_006">{{ header.client.cuit }}</span></div>
     <div style="left:205.97px;top:197px" class="cls_002"><span class="cls_002">Apellido y Nombre / Razón Social:</span>
     </div>
-    <div style="left:354.00px;top:198px" class="cls_008"><span class="cls_008">Rodrigo Victor Alcorta</span></div>
+    <div style="left:354.00px;top:198px" class="cls_008"><span class="cls_008">{{ header.client.businessName }}</span>
+    </div>
     <div style="left:21.00px;top:216px" class="cls_002"><span class="cls_002">Condición frente al IVA:</span></div>
-    <div style="left:131.00px;top:216px" class="cls_006"><span class="cls_006">Excento</span></div>
+    <div style="left:131.00px;top:216px" class="cls_006"><span class="cls_006">{{ header.client.iva }}</span></div>
     <div style="width:200px;left:262.48px;top:216px" class="cls_002"><span class="cls_002">Domicilio:</span><span
-        style="width:200px;" class="cls_008">Un lugar</span></div>
+        style="width:200px;" class="cls_008">{{ header.client.address }}</span></div>
     <div style="left:21.00px;top:237px" class="cls_002"><span class="cls_002">Condición de venta:</span><span
-        class="cls_008"> Otra</span></div>
-
+        class="cls_008"> {{ header.client.ivaCondition }}</span></div>
 
     <div style="left:19.00px;top:265px" class="cls_010"><span class="cls_010">Código</span></div>
     <div style="left:60.00px;top:265px" class="cls_010"><span class="cls_010">Producto / Servicio</span></div>
@@ -361,24 +372,41 @@
     <div style="left:520.50px;top:265px" class="cls_011"><span class="cls_011">Subtotal</span></div>
 
 
-    <div style="left:18.00px;top:285px" class="cls_008"><span class="cls_008">0001</span></div>
-    <div style="left:57.00px;top:285px" class="cls_008"><span class="cls_008">Codigo</span></div>
-    <div style="width:60px;left:37.5%;top:285px" class="cls_008"><span class="cls_008">1</span></div>
-    <div style="left:268.30px;top:285px" class="cls_012"><span class="cls_012">unidades</span></div>
-    <div style="left:357.54px;top:285px" class="cls_008"><span class="cls_008">1000</span></div>
-    <div style="left:392.22px;top:285px" class="cls_008"><span class="cls_008">0,00</span></div>
-    <div style="left:471.43px;top:285px" class="cls_008"><span class="cls_008">0,00</span></div>
-    <div style="width:60px;left:91%;top:285px" class="cls_008"><span class="cls_008">1000</span></div>
-
+    <!-- <div style="left:18.00px;top:285px" class="cls_008"><span class="cls_008">0001</span></div>
+    <div style="width:135px;left:57.00px;top:285px" class="cls_008"><span class="cls_008">Codigo</span></div>
+    <div style="width:60px;left:200px;top:285px;text-align: right;" class="cls_008"><span class="cls_008">1</span></div>
+    <div style="left:262px;top:285px;width: 40px;text-align: center;" class="cls_012"><span
+        class="cls_012">unidades</span></div>
+    <div style="left: 305;top: 285px;width: 75px;text-align: right;" class="cls_008"><span class="cls_008">1000</span>
+    </div>
+    <div style="left: 385;top: 285px;text-align: center;width: 29px;" class="cls_008"><span class="cls_008">0,00</span>
+    </div>
+    <div style="left: 420;top: 285px;text-align: right;width: 65px;" class="cls_008"><span class="cls_008">0,00</span>
+    </div>
+    <div style="width: 90px;left: 490px;top: 285px;text-align: right;" class="cls_008"><span class="cls_008">1000</span>
+    </div> -->
 
     {{#each items}}
-    <div style="left:18.00px;top:{{ row 285 @index 15 }}" class="cls_008"><span class="cls_008">0001</span></div>
-    <div style="left:57.00px;top:{{ row 285 @index 15 }}" class="cls_008"><span class="cls_008">Codigo</span></div>
-    <div style="width:60px;left:37.5%;top:{{ row 285 @index 15 }}" class="cls_008"><span class="cls_008">1</span></div>
-    <div style="left:268.30px;top:{{ row 285 @index 15 }}" class="cls_012"><span class="cls_012">unidades</span></div>
-    <div style="left:357.54px;top:{{ row 285 @index 15 }}" class="cls_008"><span class="cls_008">1000000</span></div>
-    <div style="left:392.22px;top:{{ row 285 @index 15 }}" class="cls_008"><span class="cls_008">0,00</span></div>
-    <div style="left:471.43px;top:{{ row 285 @index 15 }}" class="cls_008"><span class="cls_008">0,00</span></div>
+    <div style="top:{{ row 285 @index 15 }}px;left:18.00px;" class="cls_008"><span class="cls_008">{{this.code}}</span>
+    </div>
+    <div style="top:{{ row 285 @index 15 }}px;width:135px;left:57.00px;" class="cls_008"><span
+        class="cls_008">{{this.productOrService}}</span></div>
+    <div style="top:{{ row 285 @index 15 }}px;width:60px;left:200px;;text-align: right;" class="cls_008"><span
+        class="cls_008">{{this.quantity}}</span></div>
+    <div style="top:{{ row 285 @index 15 }}px;left:262px;width: 40px;text-align: center;" class="cls_012"><span
+        class="cls_012">{{this.unitOfMeasure}}</span></div>
+    <div style="top:{{ row 285 @index 15 }}px;left: 305;width: 75px;text-align: right;" class="cls_008"><span
+        class="cls_008">{{this.unitPrice}}</span>
+    </div>
+    <div style="top:{{ row 285 @index 15 }}px;left: 385;text-align: center;width: 29px;" class="cls_008"><span
+        class="cls_008">{{this.discountPercentage}}</span>
+    </div>
+    <div style="top:{{ row 285 @index 15 }}px;left: 420;text-align: right;width: 65px;" class="cls_008"><span
+        class="cls_008">{{this.discountTax}}</span>
+    </div>
+    <div style="top:{{ row 285 @index 15 }}px;width: 90px;left: 490px;text-align: right;" class="cls_008"><span
+        class="cls_008">{{this.subtotal}}</span>
+    </div>
     {{/each}}
 
 
@@ -386,15 +414,15 @@
       <table style="text-align: right;">
         <tr>
           <th style="padding-bottom: 8px;">Subtotal: $</th>
-          <th style="min-width: 100px;">400000,00</th>
+          <th style="min-width: 100px;">{{ info.subtotal }}</th>
         </tr>
         <tr>
           <td style="padding-bottom: 8px;">Importe Otros Tributos: $</td>
-          <td>0,00</td>
+          <td>{{ info.otherTaxes }}</td>
         </tr>
         <tr>
           <td>Importe Total: $</td>
-          <td>400000,00</td>
+          <td>{{ info.total }}</td>
         </tr>
       </table>
     </div>
@@ -409,11 +437,12 @@
       <table style="text-align: right;">
         <tr>
           <th style="padding-bottom: 5px;"><span class="cls_005">CAE N°:</span></th>
-          <th style="text-align: left; padding-left: 5px;"><span class="cls_007">73498487261799</span></th>
+          <th style="text-align: left; padding-left: 5px;"><span class="cls_007">{{ info.caeNumber
+              }}</span></th>
         </tr>
         <tr>
           <td><span class="cls_005">Fecha de Vto. de CAE:</span></td>
-          <td style="text-align: left;padding-left: 5px;"><span class="cls_007">15/12/2023</span></td>
+          <td style="text-align: left;padding-left: 5px;"><span class="cls_007">{{ info.caeDate }}</span></td>
         </tr>
       </table>
     </div>
