@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-empty-interface */
 import { Client } from "soap";
-import { SoapAsyncFunc } from "../../../types";
+import { SoapAsyncFunc } from "../../types";
+
 /* tslint:disable:max-line-length no-empty-interface */
 export interface IgetPersonaInput {
   /** http://a5.soap.ws.server.puc.sr/#xs:string(undefined) */

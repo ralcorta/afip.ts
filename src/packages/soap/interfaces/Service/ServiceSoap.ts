@@ -18,6 +18,7 @@ export interface IFECompTotXRequestOutput {
   FECompTotXRequestResult: ServiceSoapTypes.IFECompTotXRequestResult;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface IFEDummyInput {}
 
 export interface IFEDummyOutput {
@@ -152,6 +153,7 @@ export interface IFEParamGetTiposConceptoOutput {
   FEParamGetTiposConceptoResult: ServiceSoapTypes.IFEParamGetTiposConceptoResult;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface IFEParamGetPtosVentaInput {
   // Auth: ServiceSoapTypes.IAuth;
 }

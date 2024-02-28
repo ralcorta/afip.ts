@@ -1,19 +1,13 @@
-import { IOptions } from "soap";
-import { ILoginCmsReturn } from "./soap/interfaces/LoginCMSService/LoginCms";
-import { ServiceSoapTypes } from "./soap/interfaces/Service/ServiceSoap";
+import { ILoginCmsReturn } from "./packages/soap/interfaces/LoginCMSService/LoginCms";
+import { ServiceSoapTypes } from "./packages/soap/interfaces/Service/ServiceSoap";
 import {
   IFEParamGetPtosVentaOutput,
   ServiceSoap12Types,
-} from "./soap/interfaces/Service/ServiceSoap12";
+} from "./packages/soap/interfaces/Service/ServiceSoap12";
 import { EndpointsEnum, SoapServiceVersion } from "./enums";
-import { WsdlPathEnum } from "./soap/wsdl-path.enum";
-import { ServiceNamesEnum } from "./soap/service-names.enum";
-
-export type SoapAsyncFunc<I, O> = (
-  input: I,
-  options?: any,
-  extraHeaders?: any
-) => Promise<[O, string, { [k: string]: any }, string]>;
+import { WsdlPathEnum } from "./packages/soap/wsdl-path.enum";
+import { ServiceNamesEnum } from "./packages/soap/service-names.enum";
+import { SoapClientParams } from "./packages/soap/types";
 
 export type WSAuthParam = { Auth: ServiceSoapTypes.IAuth };
 
@@ -21,11 +15,6 @@ export type WSAuthTokens = {
   token: string;
   sign: string;
   expirationDate: string;
-};
-
-export type SoapClientParams = {
-  wsdl: WsdlPathEnum;
-  options?: IOptions;
 };
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface

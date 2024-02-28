@@ -1,5 +1,5 @@
 import { Client } from "soap";
-import { SoapAsyncFunc } from "../../../types";
+import { SoapAsyncFunc } from "../../types";
 
 /* tslint:disable:max-line-length no-empty-interface */
 export interface IgetPersonaInput {
@@ -17,6 +17,7 @@ export interface IgetPersonaOutput {
   personaReturn: PersonaServiceA10PortTypes.IpersonaReturn;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface IdummyInput {}
 
 export interface IdummyOutput {

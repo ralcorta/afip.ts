@@ -1,10 +1,10 @@
 import { AfipService } from "./afip.service";
-import { WsdlPathEnum } from "../soap/wsdl-path.enum";
-import { ServiceNamesEnum } from "../soap/service-names.enum";
+import { WsdlPathEnum } from "../packages/soap/wsdl-path.enum";
+import { ServiceNamesEnum } from "../packages/soap/service-names.enum";
 import {
   IPersonaServiceA5PortSoap,
   PersonaServiceA5PortTypes,
-} from "../soap/interfaces/PersonaServiceA5/PersonaServiceA5Port";
+} from "../packages/soap/interfaces/PersonaServiceA5/PersonaServiceA5Port";
 import { Context } from "../types";
 import { EndpointsEnum } from "../enums";
 

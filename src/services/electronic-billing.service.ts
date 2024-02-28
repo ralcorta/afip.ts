@@ -3,9 +3,9 @@ import {
   IFEDummyOutput,
   IServiceSoap12Soap,
   ServiceSoap12Types,
-} from "../soap/interfaces/Service/ServiceSoap12";
-import { WsdlPathEnum } from "../soap/wsdl-path.enum";
-import { ServiceNamesEnum } from "../soap/service-names.enum";
+} from "../packages/soap/interfaces/Service/ServiceSoap12";
+import { WsdlPathEnum } from "../packages/soap/wsdl-path.enum";
+import { ServiceNamesEnum } from "../packages/soap/service-names.enum";
 import {
   Context,
   IGetSalesPointsResult,

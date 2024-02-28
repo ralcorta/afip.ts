@@ -1,8 +1,8 @@
 import { Client } from "soap";
 import { AccessTicket } from "../auth/access-ticket";
 import { AfipAuth } from "../auth/afip-auth";
-import { ServiceNamesEnum } from "../soap/service-names.enum";
-import { SoapClientFacade } from "../soap/soap-client-facade";
+import { ServiceNamesEnum } from "../packages/soap/service-names.enum";
+import { SoapClientFacade } from "../packages/soap/soap-client-facade";
 import { SoapServiceVersion } from "../enums";
 import {
   Context,

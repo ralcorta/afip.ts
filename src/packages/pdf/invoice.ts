@@ -1,10 +1,10 @@
 import { readFileSync } from "fs";
-import { PDF } from "./pdf";
+import { PDF } from "../utils/pdf";
 import { ServiceSoap12Types } from "../soap/interfaces/Service/ServiceSoap12";
-import { QR } from "./qr";
+import { QR } from "../utils/qr";
 import fs from "fs/promises";
 import Handlebars from "handlebars";
-import { logger } from "./logger";
+import { logger } from "../utils/logger";
 
 Handlebars.registerHelper("row", function (base, index, amount) {
   return base + index * amount;

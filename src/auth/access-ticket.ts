@@ -3,7 +3,7 @@ import moment from "moment";
 import {
   ILoginCmsReturnCredentials,
   ILoginCmsReturnHeaders,
-} from "../soap/interfaces/LoginCMSService/LoginCms";
+} from "../packages/soap/interfaces/LoginCMSService/LoginCms";
 
 export class AccessTicket implements IAccessTicket {
   readonly header: ILoginCmsReturnHeaders;
