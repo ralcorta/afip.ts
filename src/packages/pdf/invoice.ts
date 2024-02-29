@@ -5,33 +5,6 @@ import { QR } from "../utils/qr";
 import fs from "fs/promises";
 import { TemplateCompiler } from "./template/compiler";
 
-interface QRContent {
-  ver: number;
-  fecha: string;
-  cuit: number;
-  ptoVta: number;
-  tipoCmp: number;
-  nroCmp: number;
-  importe: number;
-  moneda: string;
-  ctz: number;
-  tipoDocRec: number;
-  nroDocRec: number;
-  tipoCodAut: string;
-  codAut: number;
-}
-
-interface InvoiceItem {
-  code: string;
-  productOrService: string;
-  quantity: number;
-  unitOfMeasure: string;
-  unitPrice: number;
-  discountPercentage: number;
-  discountTax: number;
-  subtotal: number;
-}
-
 export class PDFInvoice {
   static async generateInvoice() {
     // info: ServiceSoap12Types.IFECompConsultarResult // cuit: number,
