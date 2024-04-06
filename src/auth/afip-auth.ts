@@ -1,18 +1,18 @@
-import { Parser } from "../packages/utils/parser";
+import { Parser } from "../utils/parser";
 import { promises as fs } from "fs";
 import { resolve } from "path";
-import { SoapClientFacade } from "../packages/soap/soap-client-facade";
+import { SoapClientFacade } from "../libs/soap/soap-client-facade";
 import {
   ILoginCmsSoap,
   LoginTicketResponse,
-} from "../packages/soap/interfaces/LoginCMSService/LoginCms";
+} from "../libs/soap/interfaces/LoginCMSService/LoginCms";
 import { AccessTicket } from "./access-ticket";
-import { ServiceNamesEnum } from "../packages/soap/service-names.enum";
-import { WsdlPathEnum } from "../packages/soap/wsdl-path.enum";
-import { Cryptography } from "../packages/utils/crypt-data";
+import { ServiceNamesEnum } from "../libs/soap/service-names.enum";
+import { WsdlPathEnum } from "../libs/soap/wsdl-path.enum";
+import { Cryptography } from "../utils/crypt-data";
 import { Context, WSAuthParam } from "../types";
 import { EndpointsEnum } from "../enums";
-import { logger } from "../packages/utils/logger";
+import { logger } from "../utils/logger";
 
 export class AfipAuth {
   resolvedFolderPath: string;

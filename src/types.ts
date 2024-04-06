@@ -1,13 +1,13 @@
-import { ILoginCmsReturn } from "./packages/soap/interfaces/LoginCMSService/LoginCms";
-import { ServiceSoapTypes } from "./packages/soap/interfaces/Service/ServiceSoap";
+import { ILoginCmsReturn } from "./libs/soap/interfaces/LoginCMSService/LoginCms";
+import { ServiceSoapTypes } from "./libs/soap/interfaces/Service/ServiceSoap";
 import {
   IFEParamGetPtosVentaOutput,
   ServiceSoap12Types,
-} from "./packages/soap/interfaces/Service/ServiceSoap12";
+} from "./libs/soap/interfaces/Service/ServiceSoap12";
 import { EndpointsEnum, SoapServiceVersion } from "./enums";
-import { WsdlPathEnum } from "./packages/soap/wsdl-path.enum";
-import { ServiceNamesEnum } from "./packages/soap/service-names.enum";
-import { SoapClientParams } from "./packages/soap/types";
+import { WsdlPathEnum } from "./libs/soap/wsdl-path.enum";
+import { ServiceNamesEnum } from "./libs/soap/service-names.enum";
+import { SoapClientParams } from "./libs/soap/types";
 
 export type WSAuthParam = { Auth: ServiceSoapTypes.IAuth };
 
