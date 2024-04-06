@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-empty-interface */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Client } from "soap";
-import { SoapAsyncFunc } from "../../../../types";
+import { SoapAsyncFunc } from "../../types";
 
 /* tslint:disable:max-line-length no-empty-interface */
 

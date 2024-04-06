@@ -7,7 +7,7 @@
   "types": "lib/index.d.ts",
   "scripts": {
     "build": "npx tsc",
-    "postbuild": "rm -rf lib/soap/wsdl && cp -R src/soap/wsdl lib/soap/wsdl",
+    "postbuild": "rm -rf lib/libs/soap/wsdl && cp -R src/libs/soap/wsdl lib/libs/soap/wsdl",
     "test": "jest",
     "doc": "typedoc --theme oxide --name 'afip.ts' --out docs src/index.ts",
     "wsdl-gen": "wsdl-to-ts --",
