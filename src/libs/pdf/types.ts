@@ -21,9 +21,19 @@ export type GenerateInvoiceParams = {
   meta?: GenerateInvoiceMeta;
 } & InvoiceParams;
 
-export interface GenerateInvoiceOptions {
-  templatePath: PathLike | FileHandle;
-  encoding: BufferEncoding;
+export type FilePath = PathLike | FileHandle;
+
+export interface CreatePDFOptions {
+  saveIn?: FilePath;
+}
+
+export interface CreatePDFFromBuffer extends CreatePDFOptions {
+  template: string;
+}
+
+export interface CreatePDFFromPath extends CreatePDFOptions {
+  encoding?: BufferEncoding;
+  templatePath: FilePath;
 }
 
 export interface QRContent {
