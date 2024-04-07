@@ -1,6 +1,7 @@
-import { PDF } from "../../utils/pdf";
-import { QR } from "../../utils/qr";
-import { readFile, writeFile } from "fs/promises";
+import { PathLike } from "fs";
+import { PDF } from "./utils/pdf";
+import { QR } from "./utils/qr";
+import { readFile, writeFile, FileHandle } from "fs/promises";
 import { TemplateCompiler } from "./template/compiler";
 import {
   GenerateInvoiceOptions,
@@ -149,6 +150,8 @@ const invoiceParamsTest: GenerateInvoiceParams = {
 };
 
 export class PDFInvoice {
+  constructor(private payload: GenerateInvoiceParams) {}
+
   /**
    * QR content based on AFIP specifications
    *
@@ -157,7 +160,7 @@ export class PDFInvoice {
    * @param data QRContent
    * @returns string
    */
-  static async getQr(data: QRContent): Promise<string> {
+  async getQr(data: QRContent): Promise<string> {
     const qrContentBase64 = Buffer.from(JSON.stringify(data)).toString(
       "base64"
     );
@@ -171,7 +174,7 @@ export class PDFInvoice {
    * @param params GenerateInvoiceParams
    * @returns QRContent
    */
-  static getQrContent({
+  private getQrContent({
     header,
     meta,
     info,
@@ -216,31 +219,44 @@ export class PDFInvoice {
     };
   }
 
+  private async readInvoiceTemplate(
+    templatePath: PathLike | FileHandle,
+    encoding: BufferEncoding
+  ): Promise<string> {
+    return readFile(templatePath, encoding);
+  }
+
+  private async saveInvoice(pdfBuffer: Buffer): Promise<void> {
+    await writeFile("test-invoice.pdf", pdfBuffer);
+  }
+
   /**
    * Generate invoice PDF
    *
    * @returns void
    * @throws Error
    */
-  static async generateInvoice(
-    data: GenerateInvoiceParams,
+  async generateInvoice(
     options: GenerateInvoiceOptions = {
-      templatePath: `${__dirname}/assets/invoice_b_c.html`,
+      templatePath: `${__dirname}/assets/invoice_b_c.html`, // TODO: Only for 1 page large invoice.
       encoding: "utf8",
     }
   ) {
-    const htmlContent = await readFile(options.templatePath, options.encoding);
-    const qrContent = PDFInvoice.getQrContent(data);
-    const qr = await PDFInvoice.getQr(qrContent);
+    const htmlContent = await this.readInvoiceTemplate(
+      options.templatePath,
+      options.encoding
+    );
+    const qrContent = this.getQrContent(this.payload);
+    const qr = await this.getQr(qrContent);
     const invoiceParams: InvoiceTemplateParams = {
       qr,
-      ...data,
+      ...this.payload,
     };
     const compiler = new TemplateCompiler(htmlContent, invoiceParams);
 
     try {
       const pdfBuffer = await PDF.generateFromHTML(compiler.execute());
-      await writeFile("test-invoice.pdf", pdfBuffer);
+      await this.saveInvoice(pdfBuffer);
       console.log("PDF generated successfully");
     } catch (error) {
       console.log("Error generating PDF:", error);
@@ -248,4 +264,4 @@ export class PDFInvoice {
   }
 }
 
-PDFInvoice.generateInvoice(invoiceParamsTest);
+new PDFInvoice(invoiceParamsTest).generateInvoice();
