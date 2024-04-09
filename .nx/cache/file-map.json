@@ -1,0 +1,693 @@
+{
+  "version": "6.0",
+  "nxVersion": "18.2.3",
+  "deps": {
+    "dotenv": "^16.3.1",
+    "handlebars": "^4.7.8",
+    "moment": "^2.29.4",
+    "node-forge": "^1.3.1",
+    "puppeteer": "^22.2.0",
+    "qrcode": "^1.5.3",
+    "soap": "^1.0.0",
+    "winston": "^3.10.0",
+    "xml2js": "^0.6.2",
+    "@jest/globals": "^29.6.2",
+    "@types/jest": "^29.5.1",
+    "@types/mustache": "^4.2.5",
+    "@types/node-forge": "^1.3.2",
+    "@types/qrcode": "^1.5.5",
+    "@types/underscore": "^1.11.5",
+    "@types/xml2js": "^0.4.11",
+    "jest": "^28.1.3",
+    "ts-jest": "^28.0.8",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.0.4",
+    "vitepress": "1.0.0-rc.35",
+    "wsdl-to-ts": "^0.2.3",
+    "wsdl-tsclient": "^1.4.0",
+    "nx": "18.2.3",
+    "@nx/jest": "18.2.3"
+  },
+  "pathMappings": {},
+  "nxJsonPlugins": [
+    {
+      "name": "@nx/jest/plugin",
+      "options": {
+        "targetName": "test"
+      }
+    }
+  ],
+  "fileMap": {
+    "projectFileMap": {},
+    "nonProjectFiles": [
+      {
+        "file": ".eslintrc",
+        "hash": "16380148381992666261"
+      },
+      {
+        "file": ".github/ISSUE_TEMPLATE/bug_report.md",
+        "hash": "15424388660508099364"
+      },
+      {
+        "file": ".github/ISSUE_TEMPLATE/custom.md",
+        "hash": "9370321909087569854"
+      },
+      {
+        "file": ".github/ISSUE_TEMPLATE/feature_request.md",
+        "hash": "12003031272452156761"
+      },
+      {
+        "file": ".github/dependabot.yml",
+        "hash": "16823707678868197118"
+      },
+      {
+        "file": ".github/workflows/npm-publish.yml",
+        "hash": "9776071405802454040"
+      },
+      {
+        "file": ".github/workflows/test.yml",
+        "hash": "10123173376432021887"
+      },
+      {
+        "file": ".github/workflows/vitepress-deploy.yml",
+        "hash": "5840659883167835072"
+      },
+      {
+        "file": ".gitignore",
+        "hash": "15143550829112263518"
+      },
+      {
+        "file": ".npmignore",
+        "hash": "5392664830028167444"
+      },
+      {
+        "file": "CHANGELOG.md",
+        "hash": "3283074897455392936"
+      },
+      {
+        "file": "CODE_OF_CONDUCT.md",
+        "hash": "4818503881393755995"
+      },
+      {
+        "file": "CONTRIBUTING.md",
+        "hash": "4645281473899034942"
+      },
+      {
+        "file": "LICENSE",
+        "hash": "14638470912829148289"
+      },
+      {
+        "file": "PULL_REQUEST_TEMPLATE.md",
+        "hash": "4542272252736490822"
+      },
+      {
+        "file": "README.md",
+        "hash": "17450500731735684490"
+      },
+      {
+        "file": "SECURITY.md",
+        "hash": "5463907095067055293"
+      },
+      {
+        "file": "docs/.vitepress/cache/deps/@theme_index.js",
+        "hash": "8596231272356089935"
+      },
+      {
+        "file": "docs/.vitepress/cache/deps/@theme_index.js.map",
+        "hash": "13081590171176870832"
+      },
+      {
+        "file": "docs/.vitepress/cache/deps/_metadata.json",
+        "hash": "3005911026793311311"
+      },
+      {
+        "file": "docs/.vitepress/cache/deps/chunk-67UUJLDS.js",
+        "hash": "14482226733443399692"
+      },
+      {
+        "file": "docs/.vitepress/cache/deps/chunk-67UUJLDS.js.map",
+        "hash": "9772205523473983103"
+      },
+      {
+        "file": "docs/.vitepress/cache/deps/chunk-DQULSRC4.js",
+        "hash": "6726646505245900934"
+      },
+      {
+        "file": "docs/.vitepress/cache/deps/chunk-DQULSRC4.js.map",
+        "hash": "9995886942416920736"
+      },
+      {
+        "file": "docs/.vitepress/cache/deps/package.json",
+        "hash": "8630294688235076505"
+      },
+      {
+        "file": "docs/.vitepress/cache/deps/vitepress___@vue_devtools-api.js",
+        "hash": "2031444798592440627"
+      },
+      {
+        "file": "docs/.vitepress/cache/deps/vitepress___@vue_devtools-api.js.map",
+        "hash": "6425317226356203681"
+      },
+      {
+        "file": "docs/.vitepress/cache/deps/vitepress___@vueuse_integrations_useFocusTrap.js",
+        "hash": "801641024128057537"
+      },
+      {
+        "file": "docs/.vitepress/cache/deps/vitepress___@vueuse_integrations_useFocusTrap.js.map",
+        "hash": "8547978680924264413"
+      },
+      {
+        "file": "docs/.vitepress/cache/deps/vitepress___mark__js_src_vanilla__js.js",
+        "hash": "17956499146211878771"
+      },
+      {
+        "file": "docs/.vitepress/cache/deps/vitepress___mark__js_src_vanilla__js.js.map",
+        "hash": "12349103215637755652"
+      },
+      {
+        "file": "docs/.vitepress/cache/deps/vitepress___minisearch.js",
+        "hash": "12470332785748311871"
+      },
+      {
+        "file": "docs/.vitepress/cache/deps/vitepress___minisearch.js.map",
+        "hash": "2616233798078113351"
+      },
+      {
+        "file": "docs/.vitepress/cache/deps/vue.js",
+        "hash": "12377405594788561596"
+      },
+      {
+        "file": "docs/.vitepress/cache/deps/vue.js.map",
+        "hash": "9947606979680686569"
+      },
+      {
+        "file": "docs/.vitepress/config.mts",
+        "hash": "14379268922966198069"
+      },
+      {
+        "file": "docs/basic-use.md",
+        "hash": "18000380045781456807"
+      },
+      {
+        "file": "docs/behaviour.md",
+        "hash": "12786769472896405887"
+      },
+      {
+        "file": "docs/config.md",
+        "hash": "12440777197717989122"
+      },
+      {
+        "file": "docs/contribution.md",
+        "hash": "11702785927251148512"
+      },
+      {
+        "file": "docs/credential_management.md",
+        "hash": "6924271239011133826"
+      },
+      {
+        "file": "docs/faq/errors.md",
+        "hash": "6408306510732478323"
+      },
+      {
+        "file": "docs/index.md",
+        "hash": "5621074723364667859"
+      },
+      {
+        "file": "docs/introduction.md",
+        "hash": "16575311190739604953"
+      },
+      {
+        "file": "docs/public/logo.ico",
+        "hash": "15190347735219319966"
+      },
+      {
+        "file": "docs/public/logo.png",
+        "hash": "15663364251744137385"
+      },
+      {
+        "file": "docs/public/tutorial/tutorial_1_1.png",
+        "hash": "3977514996897171570"
+      },
+      {
+        "file": "docs/public/tutorial/tutorial_1_2.png",
+        "hash": "6684302396609600239"
+      },
+      {
+        "file": "docs/public/tutorial/tutorial_1_3.png",
+        "hash": "10433969929982626471"
+      },
+      {
+        "file": "docs/public/tutorial/tutorial_1_4.png",
+        "hash": "12811474592177367392"
+      },
+      {
+        "file": "docs/public/tutorial/tutorial_1_5.png",
+        "hash": "7228889600388446991"
+      },
+      {
+        "file": "docs/public/tutorial/tutorial_2_1.png",
+        "hash": "3977514996897171570"
+      },
+      {
+        "file": "docs/public/tutorial/tutorial_2_2.png",
+        "hash": "17442182005965796924"
+      },
+      {
+        "file": "docs/public/tutorial/tutorial_2_3.png",
+        "hash": "15719422839283285870"
+      },
+      {
+        "file": "docs/public/tutorial/tutorial_3_1.png",
+        "hash": "4961246015094668409"
+      },
+      {
+        "file": "docs/public/tutorial/tutorial_3_2.png",
+        "hash": "4836058942406361106"
+      },
+      {
+        "file": "docs/public/tutorial/tutorial_3_3.png",
+        "hash": "13385501129684854406"
+      },
+      {
+        "file": "docs/public/tutorial/tutorial_4_1.png",
+        "hash": "16109255507322367586"
+      },
+      {
+        "file": "docs/public/tutorial/tutorial_5_1.png",
+        "hash": "3977514996897171570"
+      },
+      {
+        "file": "docs/public/tutorial/tutorial_5_2.png",
+        "hash": "6684302396609600239"
+      },
+      {
+        "file": "docs/public/tutorial/tutorial_5_3.png",
+        "hash": "10433969929982626471"
+      },
+      {
+        "file": "docs/public/tutorial/tutorial_5_4.png",
+        "hash": "12811474592177367392"
+      },
+      {
+        "file": "docs/public/tutorial/tutorial_5_5.png",
+        "hash": "7228889600388446991"
+      },
+      {
+        "file": "docs/public/tutorial/tutorial_6_1.png",
+        "hash": "3977514996897171570"
+      },
+      {
+        "file": "docs/public/tutorial/tutorial_6_2.png",
+        "hash": "6684302396609600239"
+      },
+      {
+        "file": "docs/public/tutorial/tutorial_6_3.png",
+        "hash": "3144505637340752555"
+      },
+      {
+        "file": "docs/public/tutorial/tutorial_6_4.png",
+        "hash": "13066741164508026589"
+      },
+      {
+        "file": "docs/public/tutorial/tutorial_6_5.png",
+        "hash": "9573757820213431944"
+      },
+      {
+        "file": "docs/public/tutorial/tutorial_6_6.png",
+        "hash": "5446934210675956837"
+      },
+      {
+        "file": "docs/public/tutorial/tutorial_7_1.png",
+        "hash": "3977514996897171570"
+      },
+      {
+        "file": "docs/public/tutorial/tutorial_7_2.png",
+        "hash": "6684302396609600239"
+      },
+      {
+        "file": "docs/public/tutorial/tutorial_7_3.png",
+        "hash": "10433969929982626471"
+      },
+      {
+        "file": "docs/public/tutorial/tutorial_7_4.png",
+        "hash": "15127047927358465312"
+      },
+      {
+        "file": "docs/public/tutorial/tutorial_7_5.png",
+        "hash": "583858700816205249"
+      },
+      {
+        "file": "docs/public/tutorial/tutorial_7_6.png",
+        "hash": "2477206690975911404"
+      },
+      {
+        "file": "docs/public/tutorial/tutorial_7_7.png",
+        "hash": "4938424707088682152"
+      },
+      {
+        "file": "docs/public/tutorial/tutorial_7_8.png",
+        "hash": "12310937707537195031"
+      },
+      {
+        "file": "docs/services/consulta_padron_alcance_10.md",
+        "hash": "8211502960058385098"
+      },
+      {
+        "file": "docs/services/consulta_padron_alcance_13.md",
+        "hash": "9497880462844026791"
+      },
+      {
+        "file": "docs/services/consulta_padron_alcance_4.md",
+        "hash": "7614195988163186584"
+      },
+      {
+        "file": "docs/services/consulta_padron_alcance_5.md",
+        "hash": "17663901941958893180"
+      },
+      {
+        "file": "docs/services/facturacion_electronica.md",
+        "hash": "2979721741635872495"
+      },
+      {
+        "file": "docs/tutorial/authorize-test-web-service.md",
+        "hash": "10980754836404204917"
+      },
+      {
+        "file": "docs/tutorial/authorize-web-production-service.md",
+        "hash": "2709774876160046932"
+      },
+      {
+        "file": "docs/tutorial/enable-production-certificate-manager.md",
+        "hash": "3948990547084752441"
+      },
+      {
+        "file": "docs/tutorial/enable_testing_certificates.md",
+        "hash": "13841445467964940720"
+      },
+      {
+        "file": "docs/tutorial/obtain-production-certificate.md",
+        "hash": "10316380359403040431"
+      },
+      {
+        "file": "docs/tutorial/obtain-testing-certificate.md",
+        "hash": "8548231780632303106"
+      },
+      {
+        "file": "jest.config.js",
+        "hash": "4997392554472409862"
+      },
+      {
+        "file": "jest.setup.js",
+        "hash": "14808089258772788669"
+      },
+      {
+        "file": "nx.json",
+        "hash": "8910734851534468161"
+      },
+      {
+        "file": "package.json",
+        "hash": "145812422139717169"
+      },
+      {
+        "file": "src/afip.ts",
+        "hash": "3705035838671611533"
+      },
+      {
+        "file": "src/auth/access-ticket.ts",
+        "hash": "7386618802555314216"
+      },
+      {
+        "file": "src/auth/afip-auth.ts",
+        "hash": "13356447396121414525"
+      },
+      {
+        "file": "src/enums.ts",
+        "hash": "17549044465778050466"
+      },
+      {
+        "file": "src/index.ts",
+        "hash": "11203308957081826766"
+      },
+      {
+        "file": "src/libs/pdf/assets/factura_a.jpg",
+        "hash": "14324573044648780866"
+      },
+      {
+        "file": "src/libs/pdf/assets/factura_b_c.png",
+        "hash": "3795685968969824375"
+      },
+      {
+        "file": "src/libs/pdf/assets/invoice_b_c.html",
+        "hash": "9933062083228271790"
+      },
+      {
+        "file": "src/libs/pdf/index.ts",
+        "hash": "3205611662723382324"
+      },
+      {
+        "file": "src/libs/pdf/invoice-type-map.ts",
+        "hash": "14224044358315297279"
+      },
+      {
+        "file": "src/libs/pdf/pdf-invoice.ts",
+        "hash": "464638768717232622"
+      },
+      {
+        "file": "src/libs/pdf/template/compiler.ts",
+        "hash": "673959796569991792"
+      },
+      {
+        "file": "src/libs/pdf/template/handlebars-adapter.ts",
+        "hash": "3038320584545470402"
+      },
+      {
+        "file": "src/libs/pdf/tests/assets/invoice_b_c-test.html",
+        "hash": "12261234250630493027"
+      },
+      {
+        "file": "src/libs/pdf/tests/assets/test.pdf",
+        "hash": "12703200484744620588"
+      },
+      {
+        "file": "src/libs/pdf/tests/pdf-invoice-payload.ts",
+        "hash": "13660411440539543757"
+      },
+      {
+        "file": "src/libs/pdf/tests/pdf-invoice.test.ts",
+        "hash": "5081203908220541559"
+      },
+      {
+        "file": "src/libs/pdf/types.ts",
+        "hash": "14024561099455490203"
+      },
+      {
+        "file": "src/libs/pdf/utils/pdf.ts",
+        "hash": "6612736189784139513"
+      },
+      {
+        "file": "src/libs/pdf/utils/qr.ts",
+        "hash": "3895455580567225788"
+      },
+      {
+        "file": "src/libs/soap/interfaces/LoginCMSService/LoginCms.ts",
+        "hash": "12634130315716833256"
+      },
+      {
+        "file": "src/libs/soap/interfaces/PersonaServiceA10/PersonaServiceA10Port.ts",
+        "hash": "9975127854699052525"
+      },
+      {
+        "file": "src/libs/soap/interfaces/PersonaServiceA13/PersonaServiceA13Port.ts",
+        "hash": "2537447282617358876"
+      },
+      {
+        "file": "src/libs/soap/interfaces/PersonaServiceA4/PersonaServiceA4Port.ts",
+        "hash": "2738775337300738446"
+      },
+      {
+        "file": "src/libs/soap/interfaces/PersonaServiceA5/PersonaServiceA5Port.ts",
+        "hash": "13790131291226063770"
+      },
+      {
+        "file": "src/libs/soap/interfaces/Service/ServiceSoap.ts",
+        "hash": "3920785531694844909"
+      },
+      {
+        "file": "src/libs/soap/interfaces/Service/ServiceSoap12.ts",
+        "hash": "1680159839546874549"
+      },
+      {
+        "file": "src/libs/soap/service-names.enum.ts",
+        "hash": "16364729644561024802"
+      },
+      {
+        "file": "src/libs/soap/soap-client-facade.ts",
+        "hash": "8717711986831919072"
+      },
+      {
+        "file": "src/libs/soap/types.ts",
+        "hash": "2315835805650598001"
+      },
+      {
+        "file": "src/libs/soap/wsdl-path.enum.ts",
+        "hash": "10793064582294574988"
+      },
+      {
+        "file": "src/libs/soap/wsdl/ws_sr_padron_a10-production.wsdl",
+        "hash": "14109994064898352701"
+      },
+      {
+        "file": "src/libs/soap/wsdl/ws_sr_padron_a10.wsdl",
+        "hash": "14515092025533309446"
+      },
+      {
+        "file": "src/libs/soap/wsdl/ws_sr_padron_a13-production.wsdl",
+        "hash": "13284944986633028941"
+      },
+      {
+        "file": "src/libs/soap/wsdl/ws_sr_padron_a13.wsdl",
+        "hash": "3834510981108985824"
+      },
+      {
+        "file": "src/libs/soap/wsdl/ws_sr_padron_a4-production.wsdl",
+        "hash": "8933060271635307464"
+      },
+      {
+        "file": "src/libs/soap/wsdl/ws_sr_padron_a4.wsdl",
+        "hash": "38687181864552948"
+      },
+      {
+        "file": "src/libs/soap/wsdl/ws_sr_padron_a5-production.wsdl",
+        "hash": "17584935642299553445"
+      },
+      {
+        "file": "src/libs/soap/wsdl/ws_sr_padron_a5.wsdl",
+        "hash": "14472982531500081704"
+      },
+      {
+        "file": "src/libs/soap/wsdl/wsaa.wsdl",
+        "hash": "5879639507854439792"
+      },
+      {
+        "file": "src/libs/soap/wsdl/wsfe-production.wsdl",
+        "hash": "6557756300720261581"
+      },
+      {
+        "file": "src/libs/soap/wsdl/wsfe.wsdl",
+        "hash": "16930055189926995495"
+      },
+      {
+        "file": "src/services/afip.service.ts",
+        "hash": "4638276962217406183"
+      },
+      {
+        "file": "src/services/electronic-billing.service.ts",
+        "hash": "16522165304128574035"
+      },
+      {
+        "file": "src/services/register-scope-five.service.ts",
+        "hash": "12997329792318907278"
+      },
+      {
+        "file": "src/services/register-scope-four.service.ts",
+        "hash": "16157257082716984606"
+      },
+      {
+        "file": "src/services/register-scope-ten.service.ts",
+        "hash": "3014187449443431434"
+      },
+      {
+        "file": "src/services/register-scope-thirteen.service.ts",
+        "hash": "9944887206448528549"
+      },
+      {
+        "file": "src/types.ts",
+        "hash": "16793747532637920622"
+      },
+      {
+        "file": "src/utils/crypt-data.ts",
+        "hash": "14639641620173195023"
+      },
+      {
+        "file": "src/utils/env.ts",
+        "hash": "13574583057511505524"
+      },
+      {
+        "file": "src/utils/logger.ts",
+        "hash": "3874002723024085116"
+      },
+      {
+        "file": "src/utils/parser.ts",
+        "hash": "9508609611835513535"
+      },
+      {
+        "file": "test-invoice",
+        "hash": "4578170196713747218"
+      },
+      {
+        "file": "tests/auth/access-ticket.test.ts",
+        "hash": "4906713428605699813"
+      },
+      {
+        "file": "tests/auth/afip-auth.test.ts",
+        "hash": "13721435646135640494"
+      },
+      {
+        "file": "tests/mocks/data/credential-json.mock.ts",
+        "hash": "17229116627509163755"
+      },
+      {
+        "file": "tests/mocks/data/soapClient.mock.ts",
+        "hash": "12678726315643018602"
+      },
+      {
+        "file": "tests/mocks/data/voucher.mock.ts",
+        "hash": "11475056280976981862"
+      },
+      {
+        "file": "tests/services/afip.service.test.ts",
+        "hash": "16201236327620708533"
+      },
+      {
+        "file": "tests/services/electronic-billings.service.test.ts",
+        "hash": "664290203241817131"
+      },
+      {
+        "file": "tests/services/register-scope-five.service.test.ts",
+        "hash": "5090110930480970541"
+      },
+      {
+        "file": "tests/services/register-scope-four.service.test.ts",
+        "hash": "5059816548415391116"
+      },
+      {
+        "file": "tests/services/register-scope-ten.service.test.ts",
+        "hash": "3045410223388441945"
+      },
+      {
+        "file": "tests/services/register-scope-thirteen.service.test.ts",
+        "hash": "9486027354792512633"
+      },
+      {
+        "file": "tests/utils/config.utils.ts",
+        "hash": "3166964730328946978"
+      },
+      {
+        "file": "tests/utils/env-test.ts",
+        "hash": "2517409536162748535"
+      },
+      {
+        "file": "tests/utils/expects.utils.ts",
+        "hash": "7047290172578976008"
+      },
+      {
+        "file": "tests/utils/jest.utils.ts",
+        "hash": "894981523792441548"
+      },
+      {
+        "file": "tsconfig.json",
+        "hash": "4306340147449525291"
+      }
+    ]
+  }
+}

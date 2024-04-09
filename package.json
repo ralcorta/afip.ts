@@ -6,6 +6,7 @@
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
+    "lint": "eslint '**/*.ts' --ignore-pattern node_modules/ --ignore-pattern lib/",
     "build": "npx tsc",
     "postbuild": "rm -rf lib/libs/soap/wsdl && cp -R src/libs/soap/wsdl lib/libs/soap/wsdl",
     "test": "jest",
