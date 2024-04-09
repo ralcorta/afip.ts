@@ -3,12 +3,12 @@
   "version": "3.1.4",
   "description": "Afip typescript SDK",
   "source": "src/index.ts",
-  "main": "lib/index.js",
-  "types": "lib/index.d.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
-    "lint": "eslint '**/*.ts' --ignore-pattern node_modules/ --ignore-pattern lib/",
+    "lint": "eslint '**/*.ts' --ignore-pattern node_modules/ --ignore-pattern dist/",
     "build": "npx tsc",
-    "postbuild": "rm -rf lib/libs/soap/wsdl && cp -R src/libs/soap/wsdl lib/libs/soap/wsdl",
+    "postbuild": "rm -rf dist/libs/soap/wsdl && cp -R src/libs/soap/wsdl dist/libs/soap/wsdl",
     "test": "jest",
     "doc": "typedoc --theme oxide --name 'afip.ts' --out docs src/index.ts",
     "wsdl-gen": "wsdl-to-ts --",
@@ -29,6 +29,7 @@
     "jest": "^28.1.3",
     "ts-jest": "^28.0.8",
     "ts-node": "^10.9.1",
+    "turbo": "^1.13.2",
     "typescript": "^5.0.4",
     "vitepress": "1.0.0-rc.35",
     "wsdl-to-ts": "^0.2.3",
@@ -57,7 +58,7 @@
   },
   "homepage": "https://github.com/ralcorta/afip.ts#readme",
   "files": [
-    "lib/**/*"
+    "dist/**/*"
   ],
   "keywords": [
     "web-service",
@@ -71,5 +72,8 @@
     "rest",
     "endpoint",
     "wsaa"
+  ],
+  "workspaces": [
+    "packages/*"
   ]
 }

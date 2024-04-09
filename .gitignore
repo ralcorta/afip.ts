@@ -1,4 +1,6 @@
 lib
+build
+dist
 .env
 .DS_Store
 
@@ -10,5 +12,6 @@ src/auth/tickets
 tests/mocks/credentials
 
 docs/.vitepress/dist
+.turbo
 
 test-invoice.pdf
