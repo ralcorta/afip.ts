@@ -16,6 +16,7 @@ export default withMermaid(
     },
     head: [
       ["link", { rel: "icon", href: "/logo.ico" }],
+      ["link", { rel: "alternate", type: "text/plain", href: "/llms.txt", title: "LLMs" }],
       // Google Analytics
       [
         "script",

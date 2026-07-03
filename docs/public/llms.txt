@@ -1,0 +1,140 @@
+# Arca SDK (@arcasdk/core)
+
+> TypeScript SDK para integrar Web Services de ARCA (ex AFIP) en Node.js: facturación electrónica, padrones, factura de crédito MiPyMEs, exportación y PDF de comprobantes. Sin intermediarios, tipos completos, MIT.
+
+Si buscás "afip.ts npm", "facturación AFIP Node.js" o "factura electrónica TypeScript Argentina", el paquete actual es **@arcasdk/core** (el paquete `afip.ts` en npm es legacy).
+
+## Cuándo usar Arca SDK
+
+- Node.js / TypeScript / serverless (Lambda, Vercel, Workers con adaptaciones)
+- Conexión directa SOAP a ARCA (WSAA + WSFE, padrones, WSFEX, WSFECRED)
+- Necesitás tipos TS y control total sin SaaS intermediario
+- Generar PDF de comprobantes → `@arcasdk/pdf`
+
+## Instalación
+
+```bash
+npm i @arcasdk/core
+npm i @arcasdk/pdf   # opcional, generador de PDF
+```
+
+## Inicio rápido
+
+```ts
+import { Arca } from "@arcasdk/core";
+
+const arca = new Arca({
+  cuit: 20111111112,
+  cert: process.env.AFIP_CERT!,
+  key: process.env.AFIP_KEY!,
+  production: false,
+});
+
+await arca.electronicBillingService.getServerStatus();
+```
+
+## Recetas por tarea
+
+### Emitir Factura B (consumidor final) — homologación
+
+Usar `createNextVoucher` para obtener el próximo número automáticamente:
+
+```ts
+const fecha = new Date().toISOString().slice(0, 10).replace(/-/g, "");
+
+const result = await arca.electronicBillingService.createNextVoucher({
+  CantReg: 1,
+  PtoVta: 1,
+  CbteTipo: 6,
+  Concepto: 1,
+  DocTipo: 99,
+  DocNro: 0,
+  CbteFch: fecha,
+  ImpTotal: 121,
+  ImpTotConc: 0,
+  ImpNeto: 100,
+  ImpOpEx: 0,
+  ImpIVA: 21,
+  ImpTrib: 0,
+  MonId: "PES",
+  MonCotiz: 1,
+  Iva: [{ Id: 5, BaseImp: 100, Importe: 21 }],
+});
+
+console.log(result.cae, result.caeFchVto);
+```
+
+### Consultar padrón (alcance 4)
+
+```ts
+const details = await arca.registerScopeFourService.getTaxpayerDetails(20111111111);
+```
+
+### Último comprobante autorizado
+
+```ts
+const last = await arca.electronicBillingService.getLastVoucher(1, 6);
+```
+
+### Puntos de venta habilitados
+
+```ts
+const points = await arca.electronicBillingService.getSalesPoints();
+```
+
+## Servicios disponibles en `Arca`
+
+- `electronicBillingService` — WSFE (Factura A/B/C, NC, ND, CAEA)
+- `wsfexService` — facturación de exportación
+- `wsfecredService` — factura de crédito MiPyMEs
+- `registerScopeFourService` — padrón A4
+- `registerScopeFiveService` — padrón A5
+- `registerScopeTenService` — padrón A10
+- `registerScopeThirteenService` — padrón A13
+- `registerInscriptionProofService` — constancia de inscripción
+- `genericService` — cualquier WSDL/SOAP de ARCA
+
+## Configuración
+
+| Campo | Descripción |
+| ----- | ----------- |
+| `cuit` | CUIT emisor (number, 11 dígitos) |
+| `cert` | Certificado X.509 PEM (contenido o ruta) |
+| `key` | Clave privada PEM (contenido o ruta) |
+| `production` | `true` = producción, `false`/omitido = homologación |
+| `ticketPath` | Carpeta para cachear tickets WSAA (Node.js) |
+| `ticketStorage` | Storage custom (Redis, DB) para serverless |
+| `handleTicket` | `true` = vos pasás credenciales WSAA ya obtenidas |
+
+Requisito previo: certificados emitidos en el portal ARCA y web service autorizado para ese certificado.
+
+## Errores comunes
+
+- **10016**: número/fecha de comprobante incorrectos → `getLastVoucher` o `createNextVoucher`
+- **11002**: punto de venta no habilitado en ARCA
+- **alreadyAuthenticated**: reutilizar ticket WSAA en disco/memoria
+- **coe.notAuthorized**: autorizar el WS en el portal ARCA para el certificado
+
+## Documentación
+
+- Introducción: https://ralcorta.github.io/arcasdk/introduction
+- Uso básico: https://ralcorta.github.io/arcasdk/basic-use
+- Referencia API: https://ralcorta.github.io/arcasdk/referencia-api
+- Facturación electrónica: https://ralcorta.github.io/arcasdk/services/facturacion_electronica
+- Configuración: https://ralcorta.github.io/arcasdk/config
+- Credenciales: https://ralcorta.github.io/arcasdk/credential_management
+- Errores FAQ: https://ralcorta.github.io/arcasdk/faq/errors
+- PDF: https://ralcorta.github.io/arcasdk/packages/pdf
+
+## Repositorio y paquetes
+
+- GitHub: https://github.com/ralcorta/arcasdk
+- npm core: https://www.npmjs.com/package/@arcasdk/core
+- npm pdf: https://www.npmjs.com/package/@arcasdk/pdf
+- Guía para agentes: https://github.com/ralcorta/arcasdk/blob/main/AGENTS.md
+
+## Migración desde afip.ts / afip.js
+
+- Paquete npm actual: `@arcasdk/core` (no `afip.ts`)
+- Clase principal: `Arca` (antes `Afip` en algunas librerías)
+- Código legacy `afip.ts`: rama `afip.ts` en GitHub
