@@ -65,6 +65,15 @@
   opacity: 0.95;
 }
 
+/* En mobile la imagen se apila arriba del texto: mantenerla compacta
+   para que no se superponga con el título del hero. */
+@media (max-width: 959px) {
+  .VPHero .VPImage.image-src {
+    max-width: min(200px, 46vw);
+    animation: none;
+  }
+}
+
 @keyframes home-float {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-10px); }
