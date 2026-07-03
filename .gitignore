@@ -47,13 +47,8 @@ node_modules
 vendor
 .ticket-cache*
 
-# Examples
-examples/
-
 # Monorepo
 packages/*/lib
-
-examples
 
 # NX
 .nx

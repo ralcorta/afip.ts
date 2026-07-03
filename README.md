@@ -65,6 +65,11 @@ npm i @arcasdk/core
 npm i @arcasdk/pdf
 ```
 
+## Agentes IA
+
+- **Índice para LLMs**: [llms.txt](https://ralcorta.github.io/arcasdk/llms.txt)
+- **Guía para agentes de código**: [AGENTS.md](AGENTS.md)
+
 ## Uso rápido
 
 ### Facturación electrónica

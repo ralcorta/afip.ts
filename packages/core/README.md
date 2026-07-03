@@ -1,6 +1,8 @@
 # @arcasdk/core
 
-**Arca SDK** es la solución para integrar los servicios de ARCA (ex AFIP) en tus aplicaciones Node.js.
+**Arca SDK** — TypeScript SDK para integrar Web Services de ARCA (ex AFIP) en Node.js: facturación electrónica (WSFE), padrones, factura de crédito MiPyMEs, exportación. Sin intermediarios, tipos completos, MIT.
+
+> El paquete npm `afip.ts` es legacy. El desarrollo actual es `@arcasdk/core`.
 
 ## 🚀 Instalación
 
@@ -8,13 +10,28 @@
 npm install @arcasdk/core
 ```
 
-## 📚 Documentación
+## 📚 Uso rápido
 
-Para ver la documentación completa, ejemplos de uso y guías detalladas, por favor visita nuestro repositorio en GitHub o el sitio de documentación:
+```ts
+import { Arca } from "@arcasdk/core";
 
-- **GitHub Repo**: [https://github.com/ralcorta/arcasdk](https://github.com/ralcorta/arcasdk)
-- **Documentación Oficial**: [https://ralcorta.github.io/arcasdk](https://ralcorta.github.io/arcasdk)
+const arca = new Arca({
+  cuit: 20111111112,
+  cert: process.env.AFIP_CERT!,
+  key: process.env.AFIP_KEY!,
+  production: false,
+});
 
-## 📄 Licencia
+const status = await arca.electronicBillingService.getServerStatus();
+```
 
-Este proyecto está bajo la licencia MIT.
+## Recursos
+
+- **Documentación**: https://ralcorta.github.io/arcasdk
+- **Referencia API**: https://ralcorta.github.io/arcasdk/referencia-api
+- **Guía para agentes IA**: https://github.com/ralcorta/arcasdk/blob/main/AGENTS.md
+- **GitHub**: https://github.com/ralcorta/arcasdk
+
+## Licencia
+
+MIT
