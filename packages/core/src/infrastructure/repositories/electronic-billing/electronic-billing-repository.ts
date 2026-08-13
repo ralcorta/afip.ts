@@ -149,6 +149,7 @@ export class ElectronicBillingRepository
       CbtesAsoc: voucherData.CbtesAsoc
         ? { CbteAsoc: voucherData.CbtesAsoc }
         : undefined,
+      PeriodoAsoc: voucherData.PeriodoAsoc ?? undefined,
       Compradores: voucherData.Compradores
         ? { Comprador: voucherData.Compradores }
         : undefined,

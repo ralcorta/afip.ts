@@ -112,6 +112,7 @@ Requisito previo: certificados emitidos en el portal ARCA y web service autoriza
 ## Errores comunes
 
 - **10016**: número/fecha de comprobante incorrectos → `getLastVoucher` o `createNextVoucher`
+- **10197**: NC/ND sin asociación → enviar `CbtesAsoc` o `PeriodoAsoc`
 - **11002**: punto de venta no habilitado en ARCA
 - **alreadyAuthenticated**: reutilizar ticket WSAA en disco/memoria
 - **coe.notAuthorized**: autorizar el WS en el portal ARCA para el certificado
