@@ -69,6 +69,7 @@ const taxpayer = await arca.registerScopeFourService.getTaxpayerDetails(20111111
 Consultar [docs/faq/errors.md](docs/faq/errors.md) antes de inventar workarounds. Casos típicos:
 
 - **10016**: número o fecha de comprobante incorrectos → usar `getLastVoucher` o `createNextVoucher`.
+- **10197**: NC/ND sin asociación → enviar `CbtesAsoc` o `PeriodoAsoc`.
 - **11002**: punto de venta no habilitado en ARCA.
 - **alreadyAuthenticated**: reutilizar ticket WSAA (`FileSystemTicketStorage` o `MemoryTicketStorage`).
 - **coe.notAuthorized**: autorizar el web service para el certificado en el portal ARCA.
