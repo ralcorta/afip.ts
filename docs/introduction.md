@@ -85,6 +85,13 @@ La SDK ofrece soporte de primera clase para los servicios más críticos:
       <span>WSFECred</span>
     </div>
   </a>
+  <a href="/services/comprobantes_turismo" class="service-link-card">
+    <div class="service-link-icon">🏨</div>
+    <div class="service-link-content">
+      <strong>Comprobantes T de turismo</strong>
+      <span>WSCT — alojamiento a turistas extranjeros</span>
+    </div>
+  </a>
   <a href="/services/generic-service" class="service-link-card">
     <div class="service-link-icon">🔧</div>
     <div class="service-link-content">
@@ -105,7 +112,7 @@ La SDK ofrece soporte de primera clase para los servicios más críticos:
 
 ## API de `Arca`
 
-Cada instancia de `Arca` expone servicios tipados (`electronicBillingService`, `wsfexService`, `wsfecredService`, padrones, `genericService`, etc.), constantes `ArcaServiceNames`, storages de tickets y DTOs exportados desde el paquete.
+Cada instancia de `Arca` expone servicios tipados (`electronicBillingService`, `wsfexService`, `wsfecredService`, `wsctService`, padrones, `genericService`, etc.), constantes `ArcaServiceNames`, storages de tickets y DTOs exportados desde el paquete.
 
 [Ver referencia completa de la API pública](/referencia-api)
 

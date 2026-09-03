@@ -66,6 +66,17 @@ const WSDL_CONFIGS = [
     },
   },
   {
+    wsdl: "wsct.wsdl",
+    dtoPackage: "ct",
+    sections: {
+      "CTService/CTServiceSOAP": {
+        folder: "CTService",
+        file: "ServiceSoap.ts",
+        dtoFile: "service-soap.types.ts",
+      },
+    },
+  },
+  {
     wsdl: "wsaa.wsdl",
     dtoPackage: "authentication",
     sections: {
@@ -178,6 +189,24 @@ const XSD_STRING_REGEX = new RegExp(
   "g",
 );
 
+// wsdl-to-ts emits XSD restriction facets as TS string unions instead of the
+// base numeric type (e.g. `"minInclusive" | "maxInclusive"` for xsd:short).
+const XSD_NUMERIC_FACETS = [
+  "minInclusive",
+  "maxInclusive",
+  "minExclusive",
+  "maxExclusive",
+  "totalDigits",
+  "fractionDigits",
+];
+const XSD_FACET_UNION_REGEX = new RegExp(
+  `:\\s*(?:"(?:${XSD_NUMERIC_FACETS.join("|")})"(?:\\s*\\|\\s*"(?:${XSD_NUMERIC_FACETS.join("|")})")*)\\s*;`,
+  "g",
+);
+const XSD_FACET_LITERAL_REGEX = new RegExp(
+  `"(?:${XSD_NUMERIC_FACETS.join("|")})"`,
+);
+
 function removeAuthFields(content) {
   const lines = content.split("\n");
   const result = [];
@@ -210,7 +239,16 @@ function fixWsdlTypes(content) {
   return content
     .replace(XSD_REGEX, ": number")
     .replace(XSD_STRING_REGEX, ": string")
-    .replace(/:\s*(string|number|boolean)>/g, ": $1");
+    .replace(/:\s*(string|number|boolean)>/g, ": $1")
+    .replace(XSD_FACET_UNION_REGEX, ": number;");
+}
+
+function assertNoXsdFacetUnions(filePath, content) {
+  if (XSD_FACET_LITERAL_REGEX.test(content)) {
+    throw new Error(
+      `Generated ${filePath} still contains XSD restriction facet unions. Update fixWsdlTypes.`,
+    );
+  }
 }
 
 function stripWsdlFieldComments(content) {
@@ -379,6 +417,10 @@ function generate() {
         target.dtoFile,
       );
       writeGeneratedFile(dtoOutFile, DTO_HEADER, dtoBody);
+      assertNoXsdFacetUnions(
+        `application/dto/${config.dtoPackage}/${target.dtoFile}`,
+        dtoBody,
+      );
       console.log(
         `  -> application/dto/${config.dtoPackage}/${target.dtoFile}`,
       );

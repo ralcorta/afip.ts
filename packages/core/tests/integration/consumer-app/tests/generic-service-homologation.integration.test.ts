@@ -30,6 +30,14 @@ type WsfexDummyResponse = {
   };
 };
 
+type WsctDummyResponse = {
+  dummyReturn?: {
+    appserver?: string;
+    dbserver?: string;
+    authserver?: string;
+  };
+};
+
 describeOrSkip(
   "GenericService homologación — WSDL embebido vía genericService.call (consumidor npm)",
   () => {
@@ -109,6 +117,21 @@ describeOrSkip(
       ).toBeDefined();
     });
 
+    // WSCT dummy endpoint returns [common_001] Acceso Denegado in homologación
+    it.skip("wsct dummy resuelve WSDL embebido y responde estado de servidores", async () => {
+      const result = (await arca.genericService.call(
+        ArcaServiceNames.WSCT,
+        "dummy",
+        {},
+      )) as WsctDummyResponse;
+
+      expect(result).toBeDefined();
+      expect(result.dummyReturn).toBeDefined();
+      expectNonEmptyString("appserver", result.dummyReturn!.appserver ?? "");
+      expectNonEmptyString("dbserver", result.dummyReturn!.dbserver ?? "");
+      expectNonEmptyString("authserver", result.dummyReturn!.authserver ?? "");
+    });
+
     it("padron a4 vía genérico coincide con registerScopeFourService.getServerStatus", async () => {
       const genericResult = (await arca.genericService.call(
         ArcaServiceNames.WSSR_PADRON_FOUR,
@@ -135,6 +158,19 @@ describeOrSkip(
       const dedicatedResult = await arca.wsfexService.dummy();
 
       expect(genericResult.FEXDummyResult).toEqual(dedicatedResult.FEXDummyResult);
+    });
+
+    // WSCT dummy endpoint returns [common_001] Acceso Denegado in homologación
+    it.skip("wsct dummy vía genérico coincide con wsctService.dummy", async () => {
+      const genericResult = (await arca.genericService.call(
+        ArcaServiceNames.WSCT,
+        "dummy",
+        {},
+      )) as WsctDummyResponse;
+
+      const dedicatedResult = await arca.wsctService.dummy();
+
+      expect(genericResult.dummyReturn).toEqual(dedicatedResult.dummyReturn);
     });
   },
 );

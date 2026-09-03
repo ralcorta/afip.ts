@@ -9,6 +9,7 @@ import {
   fexExcludeMethods,
   mapFecredAuth,
   mapPadronAuth,
+  mapWsctAuth,
   padronExcludeMethods,
 } from "@infrastructure/soap/config/auth-mappers";
 
@@ -42,6 +43,15 @@ describe("arca-service-config", () => {
     expect(config?.authMapper).toBe(mapFecredAuth);
   });
 
+  it("configures WSCT with SOAP 1.1, auth mapper and dummy excluded", () => {
+    const config = getArcaServiceConfig(ArcaServiceNames.WSCT);
+    expect(config?.wsdlTesting).toBe(WsdlPaths.WSCT_TEST);
+    expect(config?.endpointTesting).toBe(Endpoints.WSCT_TEST);
+    expect(config?.forceSoap12Headers).toBe(false);
+    expect(config?.authMapper).toBe(mapWsctAuth);
+    expect(config?.excludeMethods).toEqual(["dummy"]);
+  });
+
   it("configures padron services with shared auth and dummy exclusion", () => {
     const config = getArcaServiceConfig(ArcaServiceNames.WSSR_PADRON_FOUR);
     expect(config?.wsdlTesting).toBe(WsdlPaths.WSSR_PADRON_FOUR_TEST);
@@ -56,6 +66,7 @@ describe("arca-service-config", () => {
     expect(keys).toContain(ArcaServiceNames.WSFE);
     expect(keys).toContain(ArcaServiceNames.WSFEX);
     expect(keys).toContain(ArcaServiceNames.WSFECRED);
+    expect(keys).toContain(ArcaServiceNames.WSCT);
     expect(keys).toContain(ArcaServiceNames.WSSR_PADRON_FOUR);
     expect(keys).not.toContain(ArcaServiceNames.FE_DUMMY);
   });

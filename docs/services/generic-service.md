@@ -57,6 +57,7 @@ Estos servicios tienen WSDL, endpoint y mapeo de autenticación configurados en 
 | `WSFE` | `wsfe` | Facturación electrónica |
 | `WSFEX` | `wsfex` | Facturación de exportación |
 | `WSFECRED` | `wsfecred` | Factura de crédito MiPyMEs |
+| `WSCT` | `wsct` | Comprobantes T de turismo |
 | `WSSR_PADRON_FOUR` | `ws_sr_padron_a4` | Padrón alcance 4 |
 | `WSSR_PADRON_FIVE` | `ws_sr_padron_a5` | Padrón alcance 5 |
 | `WSSR_PADRON_TEN` | `ws_sr_padron_a10` | Padrón alcance 10 |
@@ -79,6 +80,13 @@ await arca.genericService.call(
   {},
 );
 
+// WSCT — consulta de tipos de comprobante T
+await arca.genericService.call(
+  ArcaServiceNames.WSCT,
+  "consultarTiposComprobantes",
+  {},
+);
+
 // Padrón A4 — consulta de contribuyente (auth inyectada automáticamente)
 await arca.genericService.call(ArcaServiceNames.WSSR_PADRON_FOUR, "getPersona", {
   idPersona: 20111111111,
@@ -86,7 +94,7 @@ await arca.genericService.call(ArcaServiceNames.WSSR_PADRON_FOUR, "getPersona", 
 ```
 
 ::: tip Servicios dedicados
-Para uso diario preferí los servicios tipados (`electronicBillingService`, `wsfexService`, `registerScopeFourService`, etc.). El genérico es para casos avanzados o paridad con el WSDL crudo.
+Para uso diario preferí los servicios tipados (`electronicBillingService`, `wsfexService`, `wsfecredService`, `wsctService`, `registerScopeFourService`, etc.). El genérico es para casos avanzados o paridad con el WSDL crudo.
 :::
 
 ---
@@ -138,8 +146,8 @@ El primer argumento (`serviceName`) se usa para solicitar el Ticket de Acceso (T
 El `GenericService` reutiliza el mismo proxy de autenticación que los repositorios dedicados:
 
 - Inyecta token WSAA en métodos que lo requieren según el WSDL.
-- Usa mappers específicos para padrón y WSFECRED.
-- Excluye métodos `dummy` / `FEXDummy` donde AFIP no espera auth en el body.
+- Usa mappers específicos para padrón, WSFECRED y WSCT.
+- Excluye métodos `dummy` / `FEXDummy` donde el WSDL no espera auth en el body. En WSCT, `dummy` puede responder `Acceso Denegado` en homologación aun sin auth; usá operaciones autenticadas para probar conectividad.
 
 No necesitás llamar a WSAA manualmente salvo que uses `handleTicket: true` con credenciales propias.
 
@@ -147,7 +155,7 @@ No necesitás llamar a WSAA manualmente salvo que uses `handleTicket: true` con 
 
 ## SOAP 1.2
 
-Por defecto el SDK usa SOAP 1.2 (`useSoap12: true` en el `Context`). Algunos servicios (padrón, WSFECRED) fuerzan SOAP 1.1 internamente. Si un WSDL custom solo soporta 1.1:
+Por defecto el SDK usa SOAP 1.2 (`useSoap12: true` en el `Context`). Algunos servicios (padrón, WSFECRED, WSCT) fuerzan SOAP 1.1 internamente. Si un WSDL custom solo soporta 1.1:
 
 ```typescript
 const arca = new Arca({

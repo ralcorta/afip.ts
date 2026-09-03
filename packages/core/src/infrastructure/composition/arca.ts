@@ -22,8 +22,10 @@ import { DEFAULT_USE_HTTPS_AGENT } from "@infrastructure/constants";
 import { isNode } from "std-env";
 import { WsfecredService } from "@application/services/wsfecred.service";
 import { WsfexService } from "@application/services/wsfex.service";
+import { WsctService } from "@application/services/wsct.service";
 import { FecredRepository } from "@infrastructure/repositories/fecred/fecred.repository";
 import { FexRepository } from "@infrastructure/repositories/fex/fex.repository";
+import { CtRepository } from "@infrastructure/repositories/ct/ct.repository";
 
 export class Arca {
   private readonly _electronicBillingService: ElectronicBillingService;
@@ -35,6 +37,7 @@ export class Arca {
   private readonly _genericService: GenericService;
   private readonly _wsfecredService: WsfecredService;
   private readonly _wsfexService: WsfexService;
+  private readonly _wsctService: WsctService;
   private readonly context: Context;
 
   constructor(context: Context) {
@@ -114,6 +117,7 @@ export class Arca {
       new FecredRepository(soapConfig),
     );
     this._wsfexService = new WsfexService(new FexRepository(soapConfig));
+    this._wsctService = new WsctService(new CtRepository(soapConfig));
   }
 
   get electronicBillingService(): ElectronicBillingService {
@@ -150,5 +154,9 @@ export class Arca {
 
   get wsfexService(): WsfexService {
     return this._wsfexService;
+  }
+
+  get wsctService(): WsctService {
+    return this._wsctService;
   }
 }

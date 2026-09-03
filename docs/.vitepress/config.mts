@@ -86,6 +86,10 @@ export default withMermaid(
               link: "/factura_credito_electronica",
             },
             {
+              text: "🏨 Comprobantes T de turismo",
+              link: "/comprobantes_turismo",
+            },
+            {
               text: "🔧 Servicio genérico",
               link: "/generic-service",
             },

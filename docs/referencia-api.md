@@ -28,6 +28,7 @@ const arca = new Arca({
 | `electronicBillingService` | WSFE | [Facturación electrónica](/services/facturacion_electronica) |
 | `wsfexService` | WSFEX | [Facturación de exportación](/services/facturacion_electronica_exportacion) |
 | `wsfecredService` | WSFECRED | [Factura de crédito MiPyMEs](/services/factura_credito_electronica) |
+| `wsctService` | WSCT | [Comprobantes T de turismo](/services/comprobantes_turismo) |
 | `registerScopeFourService` | Padrón A4 | [Padrón alcance 4](/services/consulta_padron_alcance_4) |
 | `registerScopeFiveService` | Padrón A5 | [Padrón alcance 5](/services/consulta_padron_alcance_5) |
 | `registerScopeTenService` | Padrón A10 | [Padrón alcance 10](/services/consulta_padron_alcance_10) |
@@ -43,6 +44,7 @@ import { Arca, ArcaServiceNames } from "@arcasdk/core";
 await arca.electronicBillingService.getServerStatus();
 await arca.wsfexService.dummy();
 await arca.wsfecredService.consultarTiposRetenciones();
+await arca.wsctService.consultarTiposComprobantes();
 await arca.registerScopeFourService.getTaxpayerDetails(20111111111);
 await arca.genericService.call(ArcaServiceNames.WSFE, "FEDummy", {});
 ```
@@ -70,6 +72,7 @@ await arca.genericService.call(
 | `WSFE` | `wsfe` |
 | `WSFEX` | `wsfex` |
 | `WSFECRED` | `wsfecred` |
+| `WSCT` | `wsct` |
 | `WSSR_PADRON_FOUR` | `ws_sr_padron_a4` |
 | `WSSR_PADRON_FIVE` | `ws_sr_padron_a5` |
 | `WSSR_PADRON_TEN` | `ws_sr_padron_a10` |
@@ -151,7 +154,7 @@ Detalle de engines y TLS: [Engines SOAP](/soap-engines) y [`useHttpsAgent`](/con
 El paquete reexporta tipos de la capa de aplicación para armar requests y tipar responses:
 
 - **Facturación:** `IVoucher`, `INextVoucher`, `CreateVoucherResultDto`, DTOs de parámetros y consultas WSFE.
-- **WSFEX / WSFECRED:** tipos bajo los namespaces exportados desde `@arcasdk/core` (p. ej. inputs/outputs de `wsfexService` y `wsfecredService`).
+- **WSFEX / WSFECRED / WSCT:** tipos bajo los namespaces exportados desde `@arcasdk/core` (p. ej. inputs/outputs de `wsfexService`, `wsfecredService` y `wsctService`).
 - **Padrón:** DTOs en el módulo de register exportado.
 - **Auth:** `ILoginCredentials`, entidades de dominio como `AccessTicket` y `Voucher` cuando se exportan.
 
@@ -279,6 +282,37 @@ Guía detallada: [Factura de crédito MiPyMEs](/services/factura_credito_electro
 | `consultarTiposMotivosRechazo()` | Motivos de rechazo |
 | `consultarTiposFormasCancelacion()` | Formas de cancelación |
 | `consultarTiposAjustesOperacion()` | Tipos de ajuste |
+
+---
+
+### `wsctService` (WSCT)
+
+Guía detallada: [Comprobantes T de turismo](/services/comprobantes_turismo)
+
+| Método | Descripción |
+| ------ | ----------- |
+| `dummy()` | Estado del servicio (sin `authRequest`; puede fallar en homologación) |
+| `autorizarComprobante(input)` | Autoriza comprobante clase T y obtiene CAE |
+| `consultarComprobanteTipoPVentaNro(input)` | Consulta comprobante por tipo, PV y número |
+| `consultarUltimoComprobanteAutorizado(input)` | Último comprobante autorizado |
+| `consultarCotizacion(input)` | Cotización de moneda |
+| `consultarTiposTarjeta(input)` | Tipos de tarjeta según forma de pago |
+| `consultarPuntosVenta()` | Puntos de venta habilitados |
+| `consultarTiposComprobantes()` | Tipos de comprobante T |
+| `consultarTiposDocumento()` | Tipos de documento del receptor |
+| `consultarTiposItem()` | Tipos de ítem |
+| `consultarCodigosItemTurismo()` | Códigos de ítem de turismo |
+| `consultarTiposIVA()` | Tipos de IVA |
+| `consultarCondicionesIVA()` | Condiciones de IVA |
+| `consultarTiposTributo()` | Tipos de tributo |
+| `consultarMonedas()` | Monedas |
+| `consultarPaises()` | Países |
+| `consultarCUITsPaises()` | CUITs de país |
+| `consultarRelacionEmisorReceptor()` | Relación emisor-receptor |
+| `consultarFormasPago()` | Formas de pago |
+| `consultarTiposCuenta()` | Tipos de cuenta |
+| `consultarTiposDatosAdicionales()` | Datos adicionales |
+| `consultarNovedades()` | Novedades del servicio |
 
 ---
 
