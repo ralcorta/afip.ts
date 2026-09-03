@@ -16,6 +16,7 @@ import {
   buildFacturaAProductos,
   buildFacturaAMultiIvaTributoOpcional,
   buildNotaCreditoAConAsociado,
+  buildNotaCreditoAConPeriodoAsoc,
   buildNotaDebitoAConAsociado,
   createVoucherHomologacionWithRetry,
   createNextVoucherHomologacionWithRetry,
@@ -599,6 +600,55 @@ describeOrSkip(
                 nro: det.CbteDesde!,
                 cuit: emitterCuit,
                 cbteFch: facturaFecha,
+              }),
+          );
+
+        expectFecaeHomologacionFlexible(notaResult, {
+          puntoVenta,
+          cbteTipo: 3,
+        });
+      });
+
+      it("Nota de Crédito A (CbteTipo 3) con PeriodoAsoc (sin CbtesAsoc)", async () => {
+        const { nro: puntoVenta } = await resolveHomologationPuntoVenta(arca);
+        const docNro = parseCuit11(
+          "TEST_FE_RECEIVER_CUIT",
+          process.env.TEST_FE_RECEIVER_CUIT,
+        );
+        const condIva = parseInt(
+          process.env.TEST_FE_COND_IVA_RECEPTOR_A ?? "1",
+          10,
+        );
+
+        const { resultado: facturaResult, fecha: facturaFecha } =
+          await createVoucherHomologacionWithRetry(
+            arca,
+            puntoVenta,
+            1,
+            (n, f) => buildFacturaA(puntoVenta, docNro, condIva, n, f),
+          );
+
+        const facturaAprobada =
+          facturaResult.response.FeCabResp?.Resultado === "A" &&
+          facturaResult.response.FeDetResp?.FECAEDetResponse?.[0]?.Resultado ===
+            "A";
+
+        if (!facturaAprobada) {
+          console.info(
+            "[WSFE] Factura base no aprobada; se omite test Nota de Crédito con PeriodoAsoc",
+          );
+          return;
+        }
+
+        const { resultado: notaResult } =
+          await createVoucherHomologacionWithRetry(
+            arca,
+            puntoVenta,
+            3,
+            (n, f) =>
+              buildNotaCreditoAConPeriodoAsoc(puntoVenta, docNro, condIva, n, f, {
+                fchDesde: facturaFecha,
+                fchHasta: facturaFecha,
               }),
           );
 

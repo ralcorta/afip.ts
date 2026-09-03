@@ -280,6 +280,15 @@ describe("Voucher Entity", () => {
       expect(voucher.getCbtesAsoc()).toEqual(data.CbtesAsoc);
     });
 
+    it("should return PeriodoAsoc when provided", () => {
+      const periodoAsoc = { FchDesde: "20240101", FchHasta: "20240131" };
+      const voucherWithPeriodo = Voucher.create({
+        ...data,
+        PeriodoAsoc: periodoAsoc,
+      });
+      expect(voucherWithPeriodo.getPeriodoAsoc()).toEqual(periodoAsoc);
+    });
+
     it("should return CantReg", () => {
       expect(voucher.getCantReg()).toBe(data.CantReg);
     });

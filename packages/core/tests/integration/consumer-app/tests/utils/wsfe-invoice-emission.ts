@@ -676,6 +676,49 @@ export function buildNotaDebitoAConAsociado(
   };
 }
 
+/** Nota de crédito A (3) con periodo asociado (alternativa a CbtesAsoc; error ARCA 10197). */
+export function buildNotaCreditoAConPeriodoAsoc(
+  puntoVenta: number,
+  docNroReceptor: number,
+  condicionIvaReceptorId: number,
+  siguienteNumero: number,
+  fecha: string,
+  periodo: { fchDesde: string; fchHasta: string },
+): FacturaPayload {
+  const impNeto = 100;
+  const impIVA = 21;
+  const impTrib = 0;
+  const impTotal = impNeto + impIVA + impTrib;
+  return {
+    CantReg: 1,
+    PtoVta: puntoVenta,
+    CbteTipo: 3,
+    Concepto: 2,
+    DocTipo: 80,
+    DocNro: docNroReceptor,
+    CbteDesde: siguienteNumero,
+    CbteHasta: siguienteNumero,
+    CbteFch: fecha,
+    ImpTotal: impTotal,
+    ImpTotConc: 0,
+    ImpNeto: impNeto,
+    ImpOpEx: 0,
+    ImpIVA: impIVA,
+    ImpTrib: impTrib,
+    MonId: "PES",
+    MonCotiz: 1,
+    CondicionIVAReceptorId: condicionIvaReceptorId,
+    FchServDesde: fecha,
+    FchServHasta: fecha,
+    FchVtoPago: fecha,
+    Iva: [{ Id: 5, BaseImp: impNeto, Importe: impIVA }],
+    PeriodoAsoc: {
+      FchDesde: periodo.fchDesde,
+      FchHasta: periodo.fchHasta,
+    },
+  };
+}
+
 /** Factura C (11): consumidor final, sin IVA. `CondicionIVAReceptorId` es obligatorio en WSFE. */
 export function buildFacturaC(
   puntoVenta: number,
