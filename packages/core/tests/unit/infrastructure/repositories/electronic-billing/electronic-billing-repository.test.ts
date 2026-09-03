@@ -333,6 +333,7 @@ describe("ElectronicBillingRepository", () => {
                 FchVtoPago: "20231031",
                 MonId: "PES",
                 MonCotiz: 1,
+                CanMisMonExt: undefined,
                 CondicionIVAReceptorId: 1,
                 Tributos: undefined,
                 Iva: undefined,
@@ -341,7 +342,6 @@ describe("ElectronicBillingRepository", () => {
                 Opcionales: undefined,
                 CAEA: "12345678901234",
                 PeriodoAsoc: undefined,
-                CbteFchHsGen: undefined,
               },
             ],
           },
@@ -582,6 +582,80 @@ describe("ElectronicBillingRepository", () => {
                       },
                     ],
                   },
+                }),
+              ],
+            },
+          }),
+        }),
+      );
+    });
+
+    it("should map PeriodoAsoc when provided (NC/ND)", async () => {
+      const mockVoucher = {
+        toDTO: jest.fn().mockReturnValue({
+          ...data,
+          PtoVta: 1,
+          CbteTipo: 3,
+          CbteDesde: 1,
+          CbteHasta: 1,
+          PeriodoAsoc: { FchDesde: "20240101", FchHasta: "20240131" },
+        }),
+      } as never;
+
+      mockSoapClient.FECAESolicitarAsync.mockResolvedValue([
+        {
+          FECAESolicitarResult: {
+            FeDetResp: { FECAEDetResponse: [{ Resultado: "A" }] },
+          },
+        },
+      ] as never);
+
+      await repository.createVoucher(mockVoucher);
+
+      expect(mockSoapClient.FECAESolicitarAsync).toHaveBeenCalledWith(
+        expect.objectContaining({
+          FeCAEReq: expect.objectContaining({
+            FeDetReq: {
+              FECAEDetRequest: [
+                expect.objectContaining({
+                  PeriodoAsoc: { FchDesde: "20240101", FchHasta: "20240131" },
+                }),
+              ],
+            },
+          }),
+        }),
+      );
+    });
+
+    it("should omit PeriodoAsoc when null", async () => {
+      const mockVoucher = {
+        toDTO: jest.fn().mockReturnValue({
+          ...data,
+          PtoVta: 1,
+          CbteTipo: 3,
+          CbteDesde: 1,
+          CbteHasta: 1,
+          PeriodoAsoc: null,
+        }),
+      } as never;
+
+      mockSoapClient.FECAESolicitarAsync.mockResolvedValue([
+        {
+          FECAESolicitarResult: {
+            FeDetResp: { FECAEDetResponse: [{ Resultado: "A" }] },
+          },
+        },
+      ] as never);
+
+      await repository.createVoucher(mockVoucher);
+
+      expect(mockSoapClient.FECAESolicitarAsync).toHaveBeenCalledWith(
+        expect.objectContaining({
+          FeCAEReq: expect.objectContaining({
+            FeDetReq: {
+              FECAEDetRequest: [
+                expect.objectContaining({
+                  PeriodoAsoc: undefined,
                 }),
               ],
             },

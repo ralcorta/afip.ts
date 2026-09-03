@@ -22,6 +22,8 @@ export interface IVoucher {
   CanMisMonExt?: string;
   CondicionIVAReceptorId: number;
   CbtesAsoc?: ICbtesAsoc[];
+  /** Periodo asociado (NC/ND). Alternativa a CbtesAsoc cuando no se informa comprobante puntual. */
+  PeriodoAsoc?: IPeriodoAsoc | null;
   Tributos?: ITributo[];
   Iva?: IIva[];
   Opcionales?: IOpcional[];
@@ -42,6 +44,12 @@ export interface ICbtesAsoc {
   Nro: number;
   Cuit: string;
   CbteFch?: string;
+}
+
+/** Periodo asociado a NC/ND (YYYYMMDD). Requerido por ARCA si no se envía CbtesAsoc. */
+export interface IPeriodoAsoc {
+  FchDesde: string;
+  FchHasta: string;
 }
 
 export interface IComprador {

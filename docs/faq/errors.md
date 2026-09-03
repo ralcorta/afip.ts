@@ -12,6 +12,10 @@ Este error ocurre cuando ya se ha creado un Token de Acceso (TA) para el certifi
 
 Asegúrate de que en los campos CbteDesde y CbteHasta estés ingresando el número del siguiente comprobante a autorizar. La documentación de la librería te muestra cómo obtener el número del último comprobante. Este error también puede ocurrir si intentas enviar un comprobante con una fecha anterior a la del último comprobante enviado. Para solucionarlo, debes enviarlo con una fecha igual o posterior.
 
+## (10197) Si el comprobante es Débito o Crédito, enviar estructura CbteAsoc o PeriodoAsoc
+
+En notas de crédito o débito ARCA exige asociar el comprobante original. Enviá `CbtesAsoc` (comprobante puntual) o `PeriodoAsoc` (`FchDesde` / `FchHasta` en `YYYYMMDD`) en `createVoucher` / `createNextVoucher`.
+
 ## 📜 Certificado no emitido por AC de confianza
 
 Este error se produce cuando intentas utilizar certificados de prueba en modo producción o viceversa. Se soluciona cambiando los certificados por los correspondientes o cambiando el modo de la librería (modo de prueba o producción).

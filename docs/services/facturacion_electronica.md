@@ -38,6 +38,7 @@ El método principal para generar una factura y obtener el CAE.
 | `Iva`        | IVA[]      | Alícuotas de IVA aplicadas                   |
 | `Tributos`   | Tributo[]  | _(opcional)_ Tributos adicionales            |
 | `CbtesAsoc`  | CbteAsoc[] | _(opcional)_ Comprobantes asociados (NC/ND)  |
+| `PeriodoAsoc` | `{ FchDesde, FchHasta }` | _(opcional/nulo)_ Periodo asociado (NC/ND). Alternativa a `CbtesAsoc` |
 
 ### Tipos de Comprobante (`CbteTipo`)
 

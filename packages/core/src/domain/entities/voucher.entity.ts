@@ -1,6 +1,7 @@
 import {
   IVoucher as IVoucherData,
   ICbtesAsoc,
+  IPeriodoAsoc,
   ITributo,
   IIva,
 } from "../types/voucher.types";
@@ -215,6 +216,10 @@ export class Voucher {
 
   getCbtesAsoc(): ICbtesAsoc[] | undefined {
     return this.data.CbtesAsoc;
+  }
+
+  getPeriodoAsoc(): IPeriodoAsoc | null | undefined {
+    return this.data.PeriodoAsoc;
   }
 
   toDTO(): IVoucherData {
