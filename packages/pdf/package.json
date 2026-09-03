@@ -19,14 +19,14 @@
     "html2pdf.js": "^0.14.0",
     "jsdom": "^29.1.1",
     "pdf-lib": "^1.17.1",
-    "puppeteer": "^24.43.1",
+    "puppeteer": "^25.0.2",
     "qrcode": "^1.5.4"
   },
   "devDependencies": {
     "@jest/globals": "^30.0.0",
     "@types/handlebars": "^4.0.40",
     "@types/jest": "^30.0.0",
-    "@types/node": "^24.10.1",
+    "@types/node": "^25.8.0",
     "@types/qrcode": "^1.5.5",
     "jest": "^30.0.0",
     "ts-jest": "^29.0.0",
