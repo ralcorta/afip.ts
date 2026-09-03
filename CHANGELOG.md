@@ -3,6 +3,7 @@
 ### 🚀 Features
 
 - add `wsctService` for class T tourism vouchers (WSCT): authorization, queries and catalogs via `arca.wsctService` — see [Comprobantes T de turismo](https://ralcorta.github.io/arcasdk/services/comprobantes_turismo)
+- add `PeriodoAsoc` on WSFE vouchers so credit/debit notes can satisfy ARCA error 10197 without a specific `CbtesAsoc`
 
 ### 🩹 Fixes
 
