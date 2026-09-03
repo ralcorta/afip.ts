@@ -18,7 +18,7 @@ export interface IautorizarComprobanteOutput {
 
 export interface IconsultarUltimoComprobanteAutorizadoInput {
     codigoTipoComprobante: number;
-    numeroPuntoVenta: "minInclusive" | "maxInclusive";
+    numeroPuntoVenta: number;
 }
 
 export interface IconsultarUltimoComprobanteAutorizadoOutput {
@@ -27,8 +27,8 @@ export interface IconsultarUltimoComprobanteAutorizadoOutput {
 
 export interface IconsultarComprobanteTipoPVentaNroInput {
     codigoTipoComprobante: number;
-    numeroPuntoVenta: "minInclusive" | "maxInclusive";
-    numeroComprobante: "minInclusive" | "maxInclusive";
+    numeroPuntoVenta: number;
+    numeroComprobante: number;
 }
 
 export interface IconsultarComprobanteTipoPVentaNroOutput {
@@ -179,16 +179,16 @@ export namespace CTServiceSOAPTypes {
         codigo: string;
         descripcion: string;
         codigoAlicuotaIVA: number;
-        importeIVA: "minInclusive" | "maxInclusive" | "totalDigits" | "fractionDigits";
-        importeItem: "minInclusive" | "maxInclusive" | "totalDigits" | "fractionDigits";
+        importeIVA: number;
+        importeItem: number;
     }
     export interface IarrayItems {
         item: CTServiceSOAPTypes.Iitem[];
     }
     export interface IcomprobanteAsociado {
         codigoTipoComprobante: number;
-        numeroPuntoVenta: "minInclusive" | "maxInclusive";
-        numeroComprobante: "minInclusive" | "maxInclusive";
+        numeroPuntoVenta: number;
+        numeroComprobante: number;
     }
     export interface IarrayComprobantesAsociados {
         comprobanteAsociado: CTServiceSOAPTypes.IcomprobanteAsociado[];
@@ -196,15 +196,15 @@ export namespace CTServiceSOAPTypes {
     export interface IotroTributo {
         codigo: number;
         descripcion: string;
-        baseImponible: "minInclusive" | "maxInclusive" | "totalDigits" | "fractionDigits";
-        importe: "minInclusive" | "maxInclusive" | "totalDigits" | "fractionDigits";
+        baseImponible: number;
+        importe: number;
     }
     export interface IarrayOtrosTributos {
         otroTributo: CTServiceSOAPTypes.IotroTributo[];
     }
     export interface IsubtotalIVA {
         codigo: number;
-        importe: "minInclusive" | "maxInclusive" | "totalDigits" | "fractionDigits";
+        importe: number;
     }
     export interface IarraySubtotalesIVA {
         subtotalIVA: CTServiceSOAPTypes.IsubtotalIVA[];
@@ -223,16 +223,16 @@ export namespace CTServiceSOAPTypes {
     }
     export interface IformaPago {
         codigo: number;
-        tipoTarjeta: "minInclusive" | "maxInclusive";
-        numeroTarjeta: "minExclusive" | "maxInclusive";
+        tipoTarjeta: number;
+        numeroTarjeta: number;
         swiftCode: string;
-        tipoCuenta: "minInclusive" | "maxInclusive";
-        numeroCuenta: "minExclusive" | "maxInclusive" | "fractionDigits";
+        tipoCuenta: number;
+        numeroCuenta: number;
     }
     export interface IcomprobanteRequest {
         codigoTipoComprobante: number;
-        numeroPuntoVenta: "minInclusive" | "maxInclusive";
-        numeroComprobante: "minInclusive" | "maxInclusive";
+        numeroPuntoVenta: number;
+        numeroComprobante: number;
         fechaEmision: string;
         codigoTipoAutorizacion: "A" | "E";
         codigoAutorizacion: number;
@@ -243,12 +243,12 @@ export namespace CTServiceSOAPTypes {
         codigoPais: number;
         domicilioReceptor: string;
         codigoRelacionEmisorReceptor: number;
-        importeGravado: "minInclusive" | "maxInclusive";
-        importeNoGravado: "minInclusive" | "maxInclusive";
-        importeExento: "minInclusive" | "maxInclusive";
-        importeOtrosTributos: "minInclusive" | "maxInclusive";
-        importeReintegro: "minInclusive" | "maxInclusive" | "totalDigits" | "fractionDigits";
-        importeTotal: "minInclusive" | "maxInclusive";
+        importeGravado: number;
+        importeNoGravado: number;
+        importeExento: number;
+        importeOtrosTributos: number;
+        importeReintegro: number;
+        importeTotal: number;
         codigoMoneda: string;
         cotizacionMoneda: number;
         cancelaEnMismaMonedaExtranjera: "S" | "N";
@@ -263,10 +263,10 @@ export namespace CTServiceSOAPTypes {
         };
     }
     export interface IcomprobanteResponse {
-        cuit: "minExclusive" | "maxInclusive";
+        cuit: number;
         codigoTipoComprobante: number;
-        numeroPuntoVenta: "minInclusive" | "maxInclusive";
-        numeroComprobante: "minInclusive" | "maxInclusive";
+        numeroPuntoVenta: number;
+        numeroComprobante: number;
         fechaEmision: string;
         CAE: number;
         fechaVencimientoCAE: string;
@@ -296,15 +296,15 @@ export namespace CTServiceSOAPTypes {
         resultado: "A" | "O" | "R";
     }
     export interface IconsultarUltimoComprobanteAutorizadoReturn {
-        numeroComprobante: "minInclusive" | "maxInclusive";
+        numeroComprobante: number;
         fechaEmision: string;
         arrayErrores: CTServiceSOAPTypes.IarrayErrores;
         arrayErroresFormato: CTServiceSOAPTypes.IarrayErroresFormato;
     }
     export interface Icomprobante {
         codigoTipoComprobante: number;
-        numeroPuntoVenta: "minInclusive" | "maxInclusive";
-        numeroComprobante: "minInclusive" | "maxInclusive";
+        numeroPuntoVenta: number;
+        numeroComprobante: number;
         fechaEmision: string;
         codigoTipoAutorizacion: "A" | "E";
         codigoAutorizacion: number;
@@ -315,12 +315,12 @@ export namespace CTServiceSOAPTypes {
         codigoPais: number;
         domicilioReceptor: string;
         codigoRelacionEmisorReceptor: number;
-        importeGravado: "minInclusive" | "maxInclusive";
-        importeNoGravado: "minInclusive" | "maxInclusive";
-        importeExento: "minInclusive" | "maxInclusive";
-        importeOtrosTributos: "minInclusive" | "maxInclusive";
-        importeReintegro: "minInclusive" | "maxInclusive" | "totalDigits" | "fractionDigits";
-        importeTotal: "minInclusive" | "maxInclusive";
+        importeGravado: number;
+        importeNoGravado: number;
+        importeExento: number;
+        importeOtrosTributos: number;
+        importeReintegro: number;
+        importeTotal: number;
         codigoMoneda: string;
         cotizacionMoneda: number;
         cancelaEnMismaMonedaExtranjera: "S" | "N";
@@ -341,7 +341,7 @@ export namespace CTServiceSOAPTypes {
         arrayErroresFormato: CTServiceSOAPTypes.IarrayErroresFormato;
     }
     export interface IpuntoVenta {
-        numeroPuntoVenta: "minInclusive" | "maxInclusive";
+        numeroPuntoVenta: number;
         bloqueado: "S" | "N";
         fechaBaja: string;
     }
