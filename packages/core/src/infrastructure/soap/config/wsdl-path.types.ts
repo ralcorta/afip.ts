@@ -24,6 +24,9 @@ export const WsdlPaths = {
 
   WSFECRED: "wsfecred-production.wsdl",
   WSFECRED_TEST: "wsfecred.wsdl",
+
+  WSCT: "wsct-production.wsdl",
+  WSCT_TEST: "wsct.wsdl",
 } as const;
 
 export type WsdlPath = (typeof WsdlPaths)[keyof typeof WsdlPaths];

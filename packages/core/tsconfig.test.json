@@ -2,13 +2,7 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "noEmit": true,
-    "types": ["jest", "node"],
-    "baseUrl": "./",
-    "paths": {
-      "@domain/*": ["src/domain/*"],
-      "@application/*": ["src/application/*"],
-      "@infrastructure/*": ["src/infrastructure/*"]
-    }
+    "types": ["jest", "node"]
   },
   "include": ["src/**/*", "tests/**/*", "jest.setup.integration.ts"],
   "exclude": ["node_modules", "lib"]

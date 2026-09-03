@@ -4,6 +4,7 @@ export * as PersonaServiceA13 from "./PersonaServiceA13/PersonaServiceA13Port";
 export * as PersonaServiceA4 from "./PersonaServiceA4/PersonaServiceA4Port";
 export * as PersonaServiceA5 from "./PersonaServiceA5/PersonaServiceA5Port";
 export * as PersonaServiceInscriptionProof from "./PersonaServiceInscriptionProof/PersonaServiceInscriptionProofPort";
+export * as CTServiceSoap from "./CTService/ServiceSoap";
 export * as FECredServiceSoap from "./FECredService/ServiceSoap";
 export * as FEXServiceSoap from "./FEXService/ServiceSoap";
 export * as FEXServiceSoap12 from "./FEXService/ServiceSoap12";

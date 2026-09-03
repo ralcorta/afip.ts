@@ -4,10 +4,10 @@ Monorepo TypeScript para integrar Web Services de **ARCA** (ex AFIP) en Node.js.
 
 ## Paquetes publicados
 
-| Paquete | Uso |
-| ------- | --- |
-| `@arcasdk/core` | WSAA, facturación electrónica (WSFE), padrones, FCE, WSFEX, servicio genérico SOAP |
-| `@arcasdk/pdf` | PDF de comprobantes (A, B, C, E, M) |
+| Paquete         | Uso                                                                                      |
+| --------------- | ---------------------------------------------------------------------------------------- |
+| `@arcasdk/core` | WSAA, facturación electrónica (WSFE), padrones, FCE, WSFEX, WSCT, servicio genérico SOAP |
+| `@arcasdk/pdf`  | PDF de comprobantes (A, B, C, E, M)                                                      |
 
 **Importante:** el paquete legacy `afip.ts` en npm es la versión anterior. El desarrollo actual es `@arcasdk/core`.
 
@@ -27,12 +27,14 @@ import { Arca } from "@arcasdk/core";
 const arca = new Arca({
   cuit: 20111111112,
   cert: process.env.AFIP_CERT!, // PEM o ruta al .crt
-  key: process.env.AFIP_KEY!,   // PEM o ruta al .key
-  production: false,            // homologación
+  key: process.env.AFIP_KEY!, // PEM o ruta al .key
+  production: false, // homologación
 });
 
 const status = await arca.electronicBillingService.getServerStatus();
-const invoice = await arca.electronicBillingService.createNextVoucher({ /* ... */ });
+const invoice = await arca.electronicBillingService.createNextVoucher({
+  /* ... */
+});
 const taxpayer = await arca.registerScopeFourService.getTaxpayerDetails(20111111111);
 ```
 
@@ -44,17 +46,18 @@ const taxpayer = await arca.registerScopeFourService.getTaxpayerDetails(20111111
 
 ### Servicios en `Arca`
 
-| Propiedad | Web service |
-| --------- | ----------- |
-| `electronicBillingService` | WSFE — facturas, NC, ND, CAEA |
-| `wsfexService` | WSFEX — exportación |
-| `wsfecredService` | WSFECRED — factura de crédito MiPyMEs |
-| `registerScopeFourService` | Padrón alcance 4 |
-| `registerScopeFiveService` | Padrón alcance 5 |
-| `registerScopeTenService` | Padrón alcance 10 |
-| `registerScopeThirteenService` | Padrón alcance 13 |
-| `registerInscriptionProofService` | Constancia de inscripción |
-| `genericService` | Cualquier WSDL/SOAP de ARCA |
+| Propiedad                         | Web service                           |
+| --------------------------------- | ------------------------------------- |
+| `electronicBillingService`        | WSFE — facturas, NC, ND, CAEA         |
+| `wsfexService`                    | WSFEX — exportación                   |
+| `wsfecredService`                 | WSFECRED — factura de crédito MiPyMEs |
+| `wsctService`                     | WSCT — comprobantes T de turismo      |
+| `registerScopeFourService`        | Padrón alcance 4                      |
+| `registerScopeFiveService`        | Padrón alcance 5                      |
+| `registerScopeTenService`         | Padrón alcance 10                     |
+| `registerScopeThirteenService`    | Padrón alcance 13                     |
+| `registerInscriptionProofService` | Constancia de inscripción             |
+| `genericService`                  | Cualquier WSDL/SOAP de ARCA           |
 
 ## Credenciales y entorno
 

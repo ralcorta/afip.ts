@@ -10,7 +10,7 @@ export interface IdummyOutput {
 
 export interface IconsultarComprobantesInput {
     rolCUITRepresentada: "Emisor" | "Receptor";
-    CUITContraparte: "minExclusive" | "maxInclusive";
+    CUITContraparte: number;
     codTipoCmp: number;
     estadoCmp: "PendienteRecepcion" | "Recepcionado" | "Aceptado" | "Rechazado" | "InformadaAgDpto";
     fecha: FECredServiceSOAPTypes.Ifecha;
@@ -34,7 +34,7 @@ export interface IrechazarNotaDCOutput {
 
 export interface IconsultarCtasCtesInput {
     rolCUITRepresentada: "Emisor" | "Receptor";
-    CUITContraparte: "minExclusive" | "maxInclusive";
+    CUITContraparte: number;
     fecha: FECredServiceSOAPTypes.Ifecha;
     estadoCtaCte: "Modificable" | "Aceptada" | "Rechazada" | "CanceladaTotal" | "InformadaAgDpto";
     nroPagina: number;
@@ -56,7 +56,7 @@ export interface IconsultarCtaCteOutput {
 export interface IinformarCancelacionTotalFECredInput {
     idCtaCte: FECredServiceSOAPTypes.IidCtaCte;
     arrayFormasCancelacion: FECredServiceSOAPTypes.IarrayFormasCancelacion;
-    importeCancelacion: "minInclusive" | "maxInclusive" | "totalDigits" | "fractionDigits";
+    importeCancelacion: number;
 }
 
 export interface IinformarCancelacionTotalFECredOutput {
@@ -70,10 +70,10 @@ export interface IaceptarFECredInput {
     arrayRetenciones: FECredServiceSOAPTypes.IarrayRetenciones;
     arrayAjustesOperacion: FECredServiceSOAPTypes.IarrayAjustesOperacion;
     tipoCancelacion: "PAR" | "TOT";
-    importeCancelado: "minInclusive" | "maxInclusive" | "totalDigits" | "fractionDigits";
-    importeTotalRetPesos: "minInclusive" | "maxInclusive" | "totalDigits" | "fractionDigits";
-    importeEmbargoPesos: "minInclusive" | "maxInclusive" | "totalDigits" | "fractionDigits";
-    saldoAceptado: "minInclusive" | "maxInclusive" | "totalDigits" | "fractionDigits";
+    importeCancelado: number;
+    importeTotalRetPesos: number;
+    importeEmbargoPesos: number;
+    saldoAceptado: number;
     codMoneda: string;
     cotizacionMonedaUlt: number;
     informaCBU: "S" | "N";
@@ -119,7 +119,7 @@ export interface IconsultarCuentasEnAgtDptoCltvOutput {
 }
 
 export interface IconsultarObligadoRecepcionInput {
-    cuitConsultada: "minExclusive" | "maxInclusive";
+    cuitConsultada: number;
 }
 
 export interface IconsultarObligadoRecepcionOutput {
@@ -179,7 +179,7 @@ export interface IconsultarTiposAjustesOperacionOutput {
 }
 
 export interface IconsultarMontoObligadoRecepcionInput {
-    cuitConsultada: "minExclusive" | "maxInclusive";
+    cuitConsultada: number;
     fechaEmision: string;
 }
 
@@ -211,18 +211,18 @@ export namespace FECredServiceSOAPTypes {
         hasta: string;
     }
     export interface IidComprobanteAsociado {
-        CUITEmisor: "minExclusive" | "maxInclusive";
+        CUITEmisor: number;
         codTipoCmp: number;
-        ptoVta: "minInclusive" | "maxInclusive";
-        nroCmp: "minInclusive" | "maxInclusive";
+        ptoVta: number;
+        nroCmp: number;
     }
     export interface IreferenciasComerciales {
         texto: string;
     }
     export interface IsubtotalIVA {
         codigo: number;
-        baseImponible: "minInclusive" | "maxInclusive" | "totalDigits" | "fractionDigits";
-        importe: "minInclusive" | "maxInclusive" | "totalDigits" | "fractionDigits";
+        baseImponible: number;
+        importe: number;
     }
     export interface IarraySubtotalesIVA {
         subtotalIVA: FECredServiceSOAPTypes.IsubtotalIVA[];
@@ -230,8 +230,8 @@ export namespace FECredServiceSOAPTypes {
     export interface IotroTributo {
         codigo: number;
         detalle: string;
-        baseImponible: "minInclusive" | "maxInclusive" | "totalDigits" | "fractionDigits";
-        importe: "minInclusive" | "maxInclusive" | "totalDigits" | "fractionDigits";
+        baseImponible: number;
+        importe: number;
     }
     export interface IarrayOtrosTributos {
         otroTributo: FECredServiceSOAPTypes.IotroTributo[];
@@ -243,13 +243,13 @@ export namespace FECredServiceSOAPTypes {
         codigo: string;
         descripcion: string;
         codNomMercosur: string;
-        cantidad: "minInclusive" | "maxInclusive" | "totalDigits" | "fractionDigits";
+        cantidad: number;
         codigoUnidadMedida: number;
-        precioUnitario: "minInclusive" | "maxInclusive" | "totalDigits" | "fractionDigits";
-        importeBonificacion: "minInclusive" | "maxInclusive" | "totalDigits" | "fractionDigits";
+        precioUnitario: number;
+        importeBonificacion: number;
         codigoCondicionIVA: number;
-        importeIVA: "minInclusive" | "maxInclusive" | "totalDigits" | "fractionDigits";
-        importeItem: "minInclusive" | "maxInclusive" | "totalDigits" | "fractionDigits";
+        importeIVA: number;
+        importeItem: number;
     }
     export interface IarrayItems {
         item: FECredServiceSOAPTypes.Iitem[];
@@ -267,7 +267,7 @@ export namespace FECredServiceSOAPTypes {
         motivoRechazo: FECredServiceSOAPTypes.ImotivoRechazo[];
     }
     export interface IctaAgente {
-        cuitAgente: "minExclusive" | "maxInclusive";
+        cuitAgente: number;
         razonSocialAgente: string;
         idCuenta: string;
         denominacion: string;
@@ -295,12 +295,12 @@ export namespace FECredServiceSOAPTypes {
         infoSCA: FECredServiceSOAPTypes.IinfoSCA;
     }
     export interface Icomprobante {
-        cuitEmisor: "minExclusive" | "maxInclusive";
+        cuitEmisor: number;
         razonSocialEmi: string;
         codTipoCmp: number;
-        ptovta: "minInclusive" | "maxInclusive";
-        nroCmp: "minInclusive" | "maxInclusive";
-        cuitReceptor: "minExclusive" | "maxInclusive";
+        ptovta: number;
+        nroCmp: number;
+        cuitReceptor: number;
         razonSocialRecep: string;
         tipoCodAuto: "A" | "E";
         codAutorizacion: number;
@@ -308,7 +308,7 @@ export namespace FECredServiceSOAPTypes {
         fechaPuestaDispo: string;
         fechaVenPago: string;
         fechaVenAcep: string;
-        importeTotal: "minInclusive" | "maxInclusive" | "totalDigits" | "fractionDigits";
+        importeTotal: number;
         codMoneda: string;
         cotizacionMoneda: number;
         CBUEmisor: string;
@@ -365,10 +365,10 @@ export namespace FECredServiceSOAPTypes {
         arrayErroresFormato: FECredServiceSOAPTypes.IarrayErroresFormato;
     }
     export interface IidComprobante {
-        CUITEmisor: "minExclusive" | "maxInclusive";
+        CUITEmisor: number;
         codTipoCmp: number;
-        ptoVta: "minInclusive" | "maxInclusive";
-        nroCmp: "minInclusive" | "maxInclusive";
+        ptoVta: number;
+        nroCmp: number;
     }
     export interface IrechazarNotaDCReturn {
         idComprobante: FECredServiceSOAPTypes.IidComprobante;
@@ -383,18 +383,18 @@ export namespace FECredServiceSOAPTypes {
         fechaHoraEstado: string;
     }
     export interface IidFacturaCredito {
-        CUITEmisor: "minExclusive" | "maxInclusive";
+        CUITEmisor: number;
         codTipoCmp: number;
-        ptoVta: "minInclusive" | "maxInclusive";
-        nroCmp: "minInclusive" | "maxInclusive";
+        ptoVta: number;
+        nroCmp: number;
     }
     export interface IinfoCtaCte {
         codCtaCte: number;
         estadoCtaCte: FECredServiceSOAPTypes.IestadoCtaCte;
         idFacturaCredito: FECredServiceSOAPTypes.IidFacturaCredito;
-        importeTotalFC: "minInclusive" | "maxInclusive" | "totalDigits" | "fractionDigits";
-        saldo: "minInclusive" | "maxInclusive" | "totalDigits" | "fractionDigits";
-        saldoAceptado: "minInclusive" | "maxInclusive" | "totalDigits" | "fractionDigits";
+        importeTotalFC: number;
+        saldo: number;
+        saldoAceptado: number;
         codMoneda: string;
         opcionTransferencia: "SCA" | "ADC";
     }
@@ -411,22 +411,22 @@ export namespace FECredServiceSOAPTypes {
         arrayErroresFormato: FECredServiceSOAPTypes.IarrayErroresFormato;
     }
     export interface IidFactura {
-        CUITEmisor: "minExclusive" | "maxInclusive";
+        CUITEmisor: number;
         codTipoCmp: number;
-        ptoVta: "minInclusive" | "maxInclusive";
-        nroCmp: "minInclusive" | "maxInclusive";
+        ptoVta: number;
+        nroCmp: number;
     }
     export interface IidCtaCte {
         codCtaCte: number;
         idFactura: FECredServiceSOAPTypes.IidFactura;
     }
     export interface Ifactura {
-        cuitEmisor: "minExclusive" | "maxInclusive";
+        cuitEmisor: number;
         razonSocialEmi: string;
         codTipoCmp: number;
-        ptovta: "minInclusive" | "maxInclusive";
-        nroCmp: "minInclusive" | "maxInclusive";
-        cuitReceptor: "minExclusive" | "maxInclusive";
+        ptovta: number;
+        nroCmp: number;
+        cuitReceptor: number;
         razonSocialRecep: string;
         tipoCodAuto: "A" | "E";
         codAutorizacion: number;
@@ -434,7 +434,7 @@ export namespace FECredServiceSOAPTypes {
         fechaPuestaDispo: string;
         fechaVenPago: string;
         fechaVenAcep: string;
-        importeTotal: "minInclusive" | "maxInclusive" | "totalDigits" | "fractionDigits";
+        importeTotal: number;
         codMoneda: string;
         cotizacionMoneda: number;
         CBUEmisor: string;
@@ -465,8 +465,8 @@ export namespace FECredServiceSOAPTypes {
     }
     export interface Iretencion {
         codTipo: number;
-        importe: "minInclusive" | "maxInclusive" | "totalDigits" | "fractionDigits";
-        porcentaje: "maxInclusive" | "minInclusive";
+        importe: number;
+        porcentaje: number;
         descMotivo: string;
     }
     export interface IarrayRetenciones {
@@ -474,7 +474,7 @@ export namespace FECredServiceSOAPTypes {
     }
     export interface Iajuste {
         codigo: number;
-        importe: "minInclusive" | "maxInclusive" | "totalDigits" | "fractionDigits";
+        importe: number;
     }
     export interface IarrayAjustesOperacion {
         ajuste: FECredServiceSOAPTypes.Iajuste[];
@@ -487,13 +487,13 @@ export namespace FECredServiceSOAPTypes {
         arrayFormasCancelacion: FECredServiceSOAPTypes.IarrayFormasCancelacion;
         arrayRetenciones: FECredServiceSOAPTypes.IarrayRetenciones;
         arrayAjustesOperacion: FECredServiceSOAPTypes.IarrayAjustesOperacion;
-        importeInicial: "minInclusive" | "maxInclusive" | "totalDigits" | "fractionDigits";
-        importeTotalNotasDC: "minInclusive" | "maxInclusive" | "totalDigits" | "fractionDigits";
-        importeCancelado: "minInclusive" | "maxInclusive" | "totalDigits" | "fractionDigits";
-        importeTotalRetPesos: "minInclusive" | "maxInclusive" | "totalDigits" | "fractionDigits";
-        importeEmbargoPesos: "minInclusive" | "maxInclusive" | "totalDigits" | "fractionDigits";
-        saldoAceptado: "minInclusive" | "maxInclusive" | "totalDigits" | "fractionDigits";
-        saldo: "minInclusive" | "maxInclusive" | "totalDigits" | "fractionDigits";
+        importeInicial: number;
+        importeTotalNotasDC: number;
+        importeCancelado: number;
+        importeTotalRetPesos: number;
+        importeEmbargoPesos: number;
+        saldoAceptado: number;
+        saldo: number;
         codMoneda: string;
         cotizacionMonedaUlt: number;
     }
@@ -513,10 +513,10 @@ export namespace FECredServiceSOAPTypes {
         arrayErroresFormato: FECredServiceSOAPTypes.IarrayErroresFormato;
     }
     export interface IidNota {
-        CUITEmisor: "minExclusive" | "maxInclusive";
+        CUITEmisor: number;
         codTipoCmp: number;
-        ptoVta: "minInclusive" | "maxInclusive";
-        nroCmp: "minInclusive" | "maxInclusive";
+        ptoVta: number;
+        nroCmp: number;
     }
     export interface IconfirmarNota {
         acepta: "S" | "N";
@@ -545,7 +545,7 @@ export namespace FECredServiceSOAPTypes {
         arrayErroresFormato: FECredServiceSOAPTypes.IarrayErroresFormato;
     }
     export interface IcuentaEnAgente {
-        cuitAgente: "minExclusive" | "maxInclusive";
+        cuitAgente: number;
         razonSocialAgente: string;
         idCuenta: string;
         denominacion: string;
@@ -572,7 +572,7 @@ export namespace FECredServiceSOAPTypes {
     export interface ItipoRetencion {
         codigoJurisdiccion: number;
         descripcionJurisdiccion: string;
-        porcentajeRetencion: "maxInclusive" | "minInclusive";
+        porcentajeRetencion: number;
     }
     export interface IarrayTiposRetenciones {
         tipoRetencion: FECredServiceSOAPTypes.ItipoRetencion[];
@@ -589,10 +589,10 @@ export namespace FECredServiceSOAPTypes {
         arrayErroresFormato: FECredServiceSOAPTypes.IarrayErroresFormato;
     }
     export interface IidsComprobantes {
-        CUITEmisor: "minExclusive" | "maxInclusive";
+        CUITEmisor: number;
         codTipoCmp: number;
-        ptoVta: "minInclusive" | "maxInclusive";
-        nroCmp: "minInclusive" | "maxInclusive";
+        ptoVta: number;
+        nroCmp: number;
     }
     export interface IarrayIdsRemitos {
         idsComprobantes: FECredServiceSOAPTypes.IidsComprobantes[];
@@ -626,7 +626,7 @@ export namespace FECredServiceSOAPTypes {
     }
     export interface IconsultarMontoObligadoRecepcionReturn {
         obligado: "S" | "N";
-        montoDesde: "minInclusive" | "maxInclusive" | "totalDigits" | "fractionDigits";
+        montoDesde: number;
         arrayObservacion: FECredServiceSOAPTypes.IarrayObservacion;
         arrayErrores: FECredServiceSOAPTypes.IarrayErrores;
         arrayErroresFormato: FECredServiceSOAPTypes.IarrayErroresFormato;
