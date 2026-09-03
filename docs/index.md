@@ -180,6 +180,13 @@ const invoice = await arca.electronicBillingService.createVoucher({
       <p>WSFECred: aceptación, rechazo, cuentas corrientes y parámetros FCE.</p>
       <span class="home-service-arrow">Ver documentación →</span>
     </a>
+    <a href="/services/comprobantes_turismo" class="home-service">
+      <span class="home-service-tag">Turismo</span>
+      <div class="home-service-icon">🏨</div>
+      <h3>Comprobantes T</h3>
+      <p>WSCT: autorización de comprobantes clase T para alojamiento a turistas extranjeros.</p>
+      <span class="home-service-arrow">Ver documentación →</span>
+    </a>
     <a href="/services/consulta_padron_alcance_4" class="home-service">
       <span class="home-service-tag padron">Padrón</span>
       <div class="home-service-icon">🔍</div>

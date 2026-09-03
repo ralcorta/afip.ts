@@ -1,8 +1,11 @@
 import {
   fexExcludeMethods,
+  mapAuthRequest,
   mapFecredAuth,
   mapPadronAuth,
+  mapWsctAuth,
   padronExcludeMethods,
+  wsctExcludeMethods,
 } from "@infrastructure/soap/config/auth-mappers";
 import { WSAuthParam } from "@application/types/auth.types";
 
@@ -29,11 +32,21 @@ describe("auth-mappers", () => {
     });
   });
 
+  it("mapWsctAuth uses the same Java WS authRequest shape", () => {
+    expect(mapWsctAuth).toBe(mapAuthRequest);
+    expect(mapFecredAuth).toBe(mapAuthRequest);
+    expect(mapWsctAuth(auth)).toEqual(mapFecredAuth(auth));
+  });
+
   it("padronExcludeMethods excludes dummy", () => {
     expect(padronExcludeMethods).toEqual(["dummy"]);
   });
 
   it("fexExcludeMethods excludes FEXDummy", () => {
     expect(fexExcludeMethods).toEqual(["FEXDummy"]);
+  });
+
+  it("wsctExcludeMethods excludes dummy", () => {
+    expect(wsctExcludeMethods).toEqual(["dummy"]);
   });
 });

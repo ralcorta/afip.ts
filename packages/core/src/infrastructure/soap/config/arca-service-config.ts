@@ -6,7 +6,9 @@ import {
   fexExcludeMethods,
   mapFecredAuth,
   mapPadronAuth,
+  mapWsctAuth,
   padronExcludeMethods,
+  wsctExcludeMethods,
 } from "./auth-mappers";
 
 export interface ArcaServiceConfig {
@@ -48,6 +50,15 @@ export const ArcaServiceConfigs: Partial<
     endpointTesting: Endpoints.WSFECRED_TEST,
     forceSoap12Headers: false,
     authMapper: mapFecredAuth,
+  },
+  [ArcaServiceNames.WSCT]: {
+    wsdlProduction: WsdlPaths.WSCT,
+    wsdlTesting: WsdlPaths.WSCT_TEST,
+    endpointProduction: Endpoints.WSCT,
+    endpointTesting: Endpoints.WSCT_TEST,
+    forceSoap12Headers: false,
+    authMapper: mapWsctAuth,
+    excludeMethods: wsctExcludeMethods,
   },
   [ArcaServiceNames.WSSR_INSCRIPTION_PROOF]: {
     wsdlProduction: WsdlPaths.WSSR_INSCRIPTION_PROOF,

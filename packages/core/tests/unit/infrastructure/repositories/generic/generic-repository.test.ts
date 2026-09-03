@@ -13,6 +13,7 @@ interface MockSoapClient extends Client {
   dummyAsync: jest.Mock;
   getPersonaAsync: jest.Mock;
   consultarTiposRetencionesAsync: jest.Mock;
+  consultarTiposComprobantesAsync: jest.Mock;
   FEXGetPARAM_Cbte_TipoAsync: jest.Mock;
   FEXDummyAsync: jest.Mock;
 }
@@ -28,6 +29,7 @@ describe("GenericRepository", () => {
       dummyAsync: jest.fn(),
       getPersonaAsync: jest.fn(),
       consultarTiposRetencionesAsync: jest.fn(),
+      consultarTiposComprobantesAsync: jest.fn(),
       FEXGetPARAM_Cbte_TipoAsync: jest.fn(),
       FEXDummyAsync: jest.fn(),
       setEndpoint: jest.fn(),
@@ -177,6 +179,44 @@ describe("GenericRepository", () => {
         Endpoints.WSFECRED_TEST,
       );
       expect(mockSoapClient.consultarTiposRetencionesAsync).toHaveBeenCalledWith(
+        {
+          authRequest: {
+            token: "token",
+            sign: "sign",
+            cuitRepresentada: 12345678901,
+          },
+        },
+      );
+    });
+
+    it("should exclude WSCT dummy from auth and inject authRequest for other methods", async () => {
+      const mockDummyResponse = { dummyReturn: {} };
+      mockSoapClient.dummyAsync.mockResolvedValue([mockDummyResponse]);
+
+      await repository.call(ArcaServiceNames.WSCT, "dummy", {});
+      expect(SoapClient.prototype.createClient).toHaveBeenCalledWith(
+        WsdlPaths.WSCT_TEST,
+        expect.objectContaining({ forceSoap12Headers: false }),
+      );
+      expect(SoapClient.prototype.setEndpoint).toHaveBeenCalledWith(
+        mockSoapClient,
+        Endpoints.WSCT_TEST,
+      );
+      expect(mockSoapClient.dummyAsync).toHaveBeenCalledWith({});
+
+      const mockTiposResponse = { consultarTiposComprobantesReturn: {} };
+      mockSoapClient.consultarTiposComprobantesAsync.mockResolvedValue([
+        mockTiposResponse,
+      ]);
+
+      const result = await repository.call(
+        ArcaServiceNames.WSCT,
+        "consultarTiposComprobantes",
+        {},
+      );
+
+      expect(result).toEqual(mockTiposResponse);
+      expect(mockSoapClient.consultarTiposComprobantesAsync).toHaveBeenCalledWith(
         {
           authRequest: {
             token: "token",

@@ -9,6 +9,7 @@ export const ArcaServiceNames = {
   WSSR_PADRON_THIRTEEN: "ws_sr_padron_a13",
   WSFEX: "wsfex",
   WSFECRED: "wsfecred",
+  WSCT: "wsct",
 } as const;
 
 export type ArcaServiceName =

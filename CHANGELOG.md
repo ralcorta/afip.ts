@@ -1,3 +1,9 @@
+## Unreleased
+
+### 🚀 Features
+
+- add `wsctService` for class T tourism vouchers (WSCT): authorization, queries and catalogs via `arca.wsctService` — see [Comprobantes T de turismo](https://ralcorta.github.io/arcasdk/services/comprobantes_turismo)
+
 ## 1.2.0 (2026-05-11)
 
 ### 🚀 Features
