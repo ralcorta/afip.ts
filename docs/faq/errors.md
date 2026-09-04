@@ -8,6 +8,10 @@ Debes habilitar el punto de venta para que sea accesible desde los servicios web
 
 Este error ocurre cuando ya se ha creado un Token de Acceso (TA) para el certificado que estás utilizando. Esto puede suceder si borras el archivo del Token y debes esperar un tiempo para obtener uno nuevo o si estás utilizando el mismo certificado en otro servidor o computadora. En este último caso, debes crear un certificado nuevo para el servidor que estás utilizando, ya que no se debe usar el mismo certificado en servidores diferentes.
 
+## (10048) El campo ImpTotal no coincide con la suma de los importes
+
+ARCA exige `ImpTotal = ImpTotConc + ImpNeto + ImpOpEx + ImpTrib + ImpIVA`. Un Recibo A 100% exento es válido con `ImpOpEx = ImpTotal` e `ImpNeto`/`ImpIVA` en 0. El SDK no pre-valida esa suma: si no cierra, el error lo devuelve ARCA.
+
 ## (10016) El número o la fecha del comprobante no se corresponden con el próximo a autorizar
 
 Asegúrate de que en los campos CbteDesde y CbteHasta estés ingresando el número del siguiente comprobante a autorizar. La documentación de la librería te muestra cómo obtener el número del último comprobante. Este error también puede ocurrir si intentas enviar un comprobante con una fecha anterior a la del último comprobante enviado. Para solucionarlo, debes enviarlo con una fecha igual o posterior.
