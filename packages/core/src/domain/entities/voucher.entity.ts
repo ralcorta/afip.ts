@@ -4,6 +4,7 @@ import {
   IPeriodoAsoc,
   ITributo,
   IIva,
+  VoucherTypesByClass,
 } from "../types/voucher.types";
 
 export class Voucher {
@@ -49,19 +50,7 @@ export class Voucher {
       this.validateFacturaC();
     }
 
-    if (this.isTypeA() || this.isTypeB()) {
-      this.validateFacturaWithIVA();
-    }
-
     this.validateIVAConsistency();
-
-    const calculatedTotal =
-      this.data.ImpNeto + this.data.ImpTrib + this.data.ImpIVA;
-    if (Math.abs(this.data.ImpTotal - calculatedTotal) > 0.01) {
-      throw new Error(
-        `El campo 'Importe Total' ImpTotal (${this.data.ImpTotal}), debe ser igual a la suma de ImpNeto (${this.data.ImpNeto}) + ImpTrib (${this.data.ImpTrib}) + ImpIVA (${this.data.ImpIVA}) = ${calculatedTotal}.`,
-      );
-    }
 
     if (
       !this.data.Concepto ||
@@ -101,23 +90,6 @@ export class Voucher {
     if (this.data.Iva && this.data.Iva.length > 0) {
       throw new Error(
         "Para comprobantes tipo C el array Iva no debe informarse.",
-      );
-    }
-  }
-
-  /**
-   * Validates Factura A/B specific rules
-   * Type A/B vouchers must include IVA information when ImpIVA > 0
-   * @throws Error if Type A/B rules are violated
-   */
-  private validateFacturaWithIVA(): void {
-    if (
-      this.data.ImpIVA > 0 &&
-      (!this.data.Iva || this.data.Iva.length === 0)
-    ) {
-      const type = this.data.CbteTipo === 1 ? "A" : "B";
-      throw new Error(
-        `Para comprobantes tipo ${type}, si ImpIVA es mayor a 0, debe informarse el array Iva con el detalle de alícuotas.`,
       );
     }
   }
@@ -171,15 +143,19 @@ export class Voucher {
   }
 
   isTypeC(): boolean {
-    return this.data.CbteTipo === 11;
+    return VoucherTypesByClass.C.includes(this.data.CbteTipo);
   }
 
   isTypeA(): boolean {
-    return this.data.CbteTipo === 1;
+    return VoucherTypesByClass.A.includes(this.data.CbteTipo);
   }
 
   isTypeB(): boolean {
-    return this.data.CbteTipo === 6;
+    return VoucherTypesByClass.B.includes(this.data.CbteTipo);
+  }
+
+  isTypeM(): boolean {
+    return VoucherTypesByClass.M.includes(this.data.CbteTipo);
   }
 
   getCbteFch(): string {

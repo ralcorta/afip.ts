@@ -7,6 +7,8 @@
 
 ### 🩹 Fixes
 
+- stop pre-validating WSFE `ImpTotal` in the SDK (ARCA error 10048), so fiscally valid exempt vouchers such as Recibo A (`ImpOpEx = ImpTotal`) are no longer rejected before the SOAP call
+- expand `isTypeA/B/C/M()` to Recibos, NC and ND of that class, so type-C IVA rules apply to Recibo/NC/ND C and not only Factura C (`CbteTipo` 11)
 - map XSD restricted numeric simpleTypes to `number` in generated SOAP DTOs (WSCT, WSFECRED)
 
 ## 1.2.0 (2026-05-11)

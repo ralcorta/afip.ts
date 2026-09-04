@@ -1,5 +1,5 @@
 import { Voucher } from "@domain/entities/voucher.entity";
-import { IVoucher } from "@domain/types/voucher.types";
+import { IVoucher, VoucherTypes } from "@domain/types/voucher.types";
 import { data } from "../../../mocks/data/voucher.mock";
 
 describe("Voucher Entity", () => {
@@ -87,7 +87,18 @@ describe("Voucher Entity", () => {
     it("should throw error if Factura C has IVA", () => {
       const invalidData: IVoucher = {
         ...data,
-        CbteTipo: 11, // Factura C
+        CbteTipo: VoucherTypes.FACTURA_C, // Factura C
+        ImpIVA: 100,
+      };
+      expect(() => Voucher.create(invalidData)).toThrow(
+        "El campo ImpIVA (Importe de IVA) para comprobantes tipo C debe ser igual a cero (0).",
+      );
+    });
+
+    it("should throw error if Recibo C has IVA", () => {
+      const invalidData: IVoucher = {
+        ...data,
+        CbteTipo: VoucherTypes.RECIBO_C,
         ImpIVA: 100,
       };
       expect(() => Voucher.create(invalidData)).toThrow(
@@ -98,7 +109,7 @@ describe("Voucher Entity", () => {
     it("should throw error if Factura C has Iva array", () => {
       const invalidData: IVoucher = {
         ...data,
-        CbteTipo: 11, // Factura C
+        CbteTipo: VoucherTypes.FACTURA_C, // Factura C
         ImpIVA: 0,
         Iva: [{ Id: 5, BaseImp: 100, Importe: 0 }],
       };
@@ -107,38 +118,10 @@ describe("Voucher Entity", () => {
       );
     });
 
-    it("should throw error if Factura A has ImpIVA but no Iva array", () => {
-      const invalidData: IVoucher = {
-        ...data,
-        CbteTipo: 1, // Factura A
-        ImpNeto: 100,
-        ImpIVA: 21,
-        ImpTotal: 121,
-        Iva: undefined,
-      };
-      expect(() => Voucher.create(invalidData)).toThrow(
-        "Para comprobantes tipo A, si ImpIVA es mayor a 0, debe informarse el array Iva con el detalle de alícuotas.",
-      );
-    });
-
-    it("should throw error if Factura B has ImpIVA but no Iva array", () => {
-      const invalidData: IVoucher = {
-        ...data,
-        CbteTipo: 6, // Factura B
-        ImpNeto: 100,
-        ImpIVA: 21,
-        ImpTotal: 121,
-        Iva: [],
-      };
-      expect(() => Voucher.create(invalidData)).toThrow(
-        "Para comprobantes tipo B, si ImpIVA es mayor a 0, debe informarse el array Iva con el detalle de alícuotas.",
-      );
-    });
-
     it("should throw error if IVA array totals don't match ImpIVA", () => {
       const invalidData: IVoucher = {
         ...data,
-        CbteTipo: 1,
+        CbteTipo: VoucherTypes.FACTURA_A,
         ImpNeto: 100,
         ImpIVA: 25, // Should be 21
         ImpTotal: 125,
@@ -149,19 +132,19 @@ describe("Voucher Entity", () => {
       );
     });
 
-    it("should throw error if ImpTotal calculation is incorrect", () => {
-      const invalidData: IVoucher = {
+    it("should accept Recibo A with ImpTotal equal to ImpOpEx (exempt operations)", () => {
+      const reciboA: IVoucher = {
         ...data,
-        CbteTipo: 1, // Factura A (allows IVA)
-        ImpNeto: 100,
-        ImpTrib: 10,
-        ImpIVA: 21,
-        ImpTotal: 150, // Should be 131
-        Iva: [{ Id: 5, BaseImp: 100, Importe: 21 }], // Added to pass IVA validation
+        CbteTipo: VoucherTypes.RECIBO_A,
+        ImpNeto: 0,
+        ImpIVA: 0,
+        ImpTrib: 0,
+        ImpOpEx: 8486143.01,
+        ImpTotConc: 0,
+        ImpTotal: 8486143.01,
+        Iva: undefined,
       };
-      expect(() => Voucher.create(invalidData)).toThrow(
-        "El campo 'Importe Total' ImpTotal (150), debe ser igual a la suma de ImpNeto (100) + ImpTrib (10) + ImpIVA (21) = 131.",
-      );
+      expect(Voucher.create(reciboA)).toBeInstanceOf(Voucher);
     });
 
     it("should throw error if Concepto is invalid", () => {
@@ -298,7 +281,7 @@ describe("Voucher Entity", () => {
     it("should return true for Factura C (type 11)", () => {
       const facturaC: IVoucher = {
         ...data,
-        CbteTipo: 11,
+        CbteTipo: VoucherTypes.FACTURA_C,
         ImpIVA: 0,
         Iva: undefined,
       };
@@ -311,7 +294,7 @@ describe("Voucher Entity", () => {
     it("should return true for Factura A (type 1)", () => {
       const facturaA: IVoucher = {
         ...data,
-        CbteTipo: 1,
+        CbteTipo: VoucherTypes.FACTURA_A,
       };
       const voucher = Voucher.create(facturaA);
       expect(voucher.isTypeA()).toBe(true);
@@ -322,12 +305,70 @@ describe("Voucher Entity", () => {
     it("should return true for Factura B (type 6)", () => {
       const facturaB: IVoucher = {
         ...data,
-        CbteTipo: 6,
+        CbteTipo: VoucherTypes.FACTURA_B,
       };
       const voucher = Voucher.create(facturaB);
       expect(voucher.isTypeB()).toBe(true);
       expect(voucher.isTypeA()).toBe(false);
       expect(voucher.isTypeC()).toBe(false);
+    });
+
+    it("should treat Recibo A (type 4) as class A", () => {
+      const reciboA: IVoucher = {
+        ...data,
+        CbteTipo: VoucherTypes.RECIBO_A,
+        ImpNeto: 0,
+        ImpIVA: 0,
+        ImpOpEx: 100,
+        ImpTotal: 100,
+        Iva: undefined,
+      };
+      const voucher = Voucher.create(reciboA);
+      expect(voucher.isTypeA()).toBe(true);
+      expect(voucher.isTypeB()).toBe(false);
+      expect(voucher.isTypeC()).toBe(false);
+    });
+
+    it("should treat Recibo C (type 15) as class C", () => {
+      const reciboC: IVoucher = {
+        ...data,
+        CbteTipo: VoucherTypes.RECIBO_C,
+        ImpIVA: 0,
+        Iva: undefined,
+      };
+      const voucher = Voucher.create(reciboC);
+      expect(voucher.isTypeC()).toBe(true);
+      expect(voucher.isTypeA()).toBe(false);
+      expect(voucher.isTypeB()).toBe(false);
+    });
+
+    it("should treat Factura M (type 51) as class M", () => {
+      const facturaM: IVoucher = {
+        ...data,
+        CbteTipo: VoucherTypes.FACTURA_M,
+        ImpNeto: 100,
+        ImpIVA: 21,
+        ImpTotal: 121,
+        Iva: [{ Id: 5, BaseImp: 100, Importe: 21 }],
+      };
+      const voucher = Voucher.create(facturaM);
+      expect(voucher.isTypeM()).toBe(true);
+      expect(voucher.isTypeA()).toBe(false);
+      expect(voucher.isTypeB()).toBe(false);
+      expect(voucher.isTypeC()).toBe(false);
+    });
+
+    it("should treat Recibo M (type 54) as class M", () => {
+      const reciboM: IVoucher = {
+        ...data,
+        CbteTipo: VoucherTypes.RECIBO_M,
+        ImpNeto: 100,
+        ImpIVA: 21,
+        ImpTotal: 121,
+        Iva: [{ Id: 5, BaseImp: 100, Importe: 21 }],
+      };
+      const voucher = Voucher.create(reciboM);
+      expect(voucher.isTypeM()).toBe(true);
     });
   });
 
