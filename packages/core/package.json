@@ -31,7 +31,7 @@
     "@types/underscore": "^1.11.5",
     "@types/xml2js": "^0.4.11",
     "dotenv": "^17.0.0",
-    "jest": "^30.0.0",
+    "jest": "^30.5.1",
     "rimraf": "^6.0.0",
     "ts-jest": "^29.0.0",
     "ts-node": "^10.9.1",
