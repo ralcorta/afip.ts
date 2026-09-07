@@ -37,7 +37,7 @@
     "ts-node": "^10.9.1",
     "tsc-alias": "^1.8.16",
     "tsconfig-paths": "^4.2.0",
-    "typescript": "^6.0.3",
+    "typescript": "^7.0.2",
     "wsdl-to-ts": "^0.2.3"
   },
   "author": "valiuLab",
