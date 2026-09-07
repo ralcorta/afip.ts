@@ -44,7 +44,7 @@
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "@nx/eslint": "^22.7.2",
-    "@nx/jest": "^22.7.2",
+    "@nx/jest": "^23.2.0",
     "@nx/js": "^22.7.2",
     "@types/jsdom": "^28.0.1",
     "@typescript-eslint/eslint-plugin": "^8.59.3",
