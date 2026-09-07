@@ -29,7 +29,7 @@
     "@types/node": "^25.8.0",
     "@types/qrcode": "^1.5.5",
     "jest": "^30.0.0",
-    "ts-jest": "^29.0.0",
+    "ts-jest": "^29.4.12",
     "ts-node": "^10.9.1",
     "tsc-alias": "^1.8.16",
     "tsconfig-paths": "^4.2.0",
