@@ -17,7 +17,7 @@
   "dependencies": {
     "handlebars": "^4.7.9",
     "html2pdf.js": "^0.14.0",
-    "jsdom": "^29.1.1",
+    "jsdom": "^30.0.1",
     "pdf-lib": "^1.17.1",
     "puppeteer": "^25.0.2",
     "qrcode": "^1.5.4"
