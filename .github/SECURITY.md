@@ -1,71 +1,40 @@
 # Security Policy
 
-## Reporting Security Vulnerabilities
+## Reporting a vulnerability
 
-We take security seriously. If you discover a security vulnerability in arcasdk, please **do not** open a public issue. Instead, follow these steps:
+If you discover a security issue in Arca SDK (`@arcasdk/core`, `@arcasdk/pdf`), **do not** open a public GitHub issue.
 
-### How to Report
+Report it privately via [GitHub Security Advisories](https://github.com/ralcorta/arcasdk/security/advisories/new).
 
-1. **Email**: Send a detailed report to the repository maintainers (check CONTRIBUTING.md for contact info)
-2. **Include**:
-   - Description of the vulnerability
-   - Steps to reproduce
-   - Potential impact
-   - Suggested fix (if you have one)
+Include:
 
-### What to Expect
+- Description of the vulnerability
+- Steps to reproduce
+- Potential impact
+- Suggested fix (if you have one)
 
-- Acknowledgment of your report within 48 hours
-- Regular updates on our progress
-- Credit in security advisories (unless you prefer anonymity)
-- Coordinated disclosure timeline
+You can expect an acknowledgment within 48 hours, updates while we work on it, and credit in advisories unless you prefer anonymity.
 
-## Security Best Practices for Users
+## Supported versions
 
-### For SDK Users
+| Package | Version | Supported |
+| ------- | ------- | --------- |
+| `@arcasdk/core` | 1.x | Yes (current) |
+| `@arcasdk/pdf` | 0.1.x | Yes (current) |
+| `@arcasdk/core` | 0.3.x and earlier | No |
+| `afip.ts` (legacy npm) | any | No — that package is not this repo’s current line |
 
-1. **Keep dependencies updated**:
-   ```bash
-   npm audit
-   npm update
-   ```
+## Credentials and secrets
 
-2. **Use in secure environments**:
-   - Only use in trusted environments
-   - Protect your credentials (certificates, keys)
-   - Don't commit credentials to version control
+- Never commit `.env`, certificates, or keys (`.crt`, `.key`, `.pem`)
+- Keep homologation and production certificates separate
+- Store certs and keys outside git (environment variables or a secret manager)
 
-3. **Certificate Management**:
-   - Store certificates securely (e.g., environment variables, AWS Secrets Manager)
-   - Use separate certificates for testing and production
-   - Rotate certificates periodically
+## Dependencies
 
-4. **Audit Logging**:
-   - Log API calls for compliance
-   - Monitor for unusual activity
+CI runs `npm audit` on the production tree. Dependency bumps are reviewed manually; this repository does not use Dependabot.
 
-## Supported Versions
+## Compliance notes
 
-| Version | Supported | Notes |
-|---------|-----------|-------|
-| 0.3.x   | ✅ Yes    | Current stable |
-| 0.2.x   | ⚠️ Limited | Security fixes only |
-| < 0.2   | ❌ No     | End of life |
-
-## Known Issues
-
-None currently reported. Check [GitHub Issues](https://github.com/ralcorta/arcasdk/issues) for any open discussions.
-
-## Compliance
-
-- **AFIP Integration**: Follows AFIP security guidelines for electronic invoicing
-- **SSL/TLS**: Uses secure protocols for all communications
-- **Input Validation**: All inputs are validated before processing
-
-## Dependencies Security
-
-We use:
-- **npm audit** in CI/CD to detect vulnerabilities
-- **Dependabot** for automated dependency updates
-- Regular dependency reviews
-
+- Talks to ARCA (ex AFIP) over TLS/SOAP
+- Inputs are validated in the SDK before requests are built; fiscal totals and similar rules are enforced by ARCA, not fully pre-validated here
